@@ -1,6 +1,7 @@
 import React from 'react';
 import { colors } from '../theme/tokens';
 import { BrandHeader } from './BrandHeader';
+import { TransitTicker } from './TransitTicker';
 import { HeroVisual } from './HeroVisual';
 import { MainContent } from './MainContent';
 import { MobilityCards } from './MobilityCards';
@@ -13,50 +14,54 @@ export const WelcomeScreen: React.FC = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%',
+        minHeight: '100vh',
         width: '100%',
         backgroundColor: colors.warmIvory,
         position: 'relative',
         boxSizing: 'border-box',
       }}
     >
-      {/* Brand Header */}
+      {/* Expansive Sticky Brand Header */}
       <BrandHeader />
 
-      {/* Main Screen Content */}
+      {/* Live Urban Transit Ticker Marquee */}
+      <TransitTicker />
+
+      {/* Front-Loading Storytelling Main View */}
       <main
         style={{
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          padding: '14px 18px 18px',
           width: '100%',
-          maxWidth: '500px',
+          maxWidth: '1200px',
           margin: '0 auto',
+          padding: '28px 20px 40px',
           boxSizing: 'border-box',
+          gap: '24px',
         }}
       >
-        {/* Mixed-Media Hero Scene */}
-        <div className="animate-entrance delay-1" style={{ width: '100%', marginBottom: '14px' }}>
+        {/* Front-Loading Panoramic Mixed-Media Hero Scene */}
+        <section aria-label="Urban Mobility Scene" className="animate-entrance delay-1" style={{ width: '100%' }}>
           <HeroVisual />
-        </div>
+        </section>
 
-        {/* Editorial Headline & Supporting Copy */}
-        <div className="animate-entrance delay-2" style={{ width: '100%', marginBottom: '6px' }}>
+        {/* Large-Scale Narrative Headline & Copy */}
+        <section aria-label="Brand Narrative" className="animate-entrance delay-2" style={{ width: '100%' }}>
           <MainContent />
-        </div>
+        </section>
 
         {/* Interactive Mobility Category Cards */}
-        <div className="animate-entrance delay-3" style={{ width: '100%' }}>
+        <section aria-label="Mobility Modes" className="animate-entrance delay-3" style={{ width: '100%' }}>
           <MobilityCards />
-        </div>
+        </section>
 
-        {/* Primary and Authentication Actions */}
-        <div className="animate-entrance delay-4" style={{ width: '100%', marginTop: 'auto' }}>
+        {/* Action Button Cluster */}
+        <section aria-label="Start Your Journey" className="animate-entrance delay-4" style={{ width: '100%', margin: '16px auto 8px' }}>
           <ActionButtons />
-        </div>
+        </section>
 
-        {/* Footer */}
+        {/* Expansive Footer & City Transit Badges */}
         <div className="animate-entrance delay-5" style={{ width: '100%' }}>
           <WelcomeFooter />
         </div>
