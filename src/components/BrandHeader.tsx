@@ -1,5 +1,6 @@
 import React from 'react';
 import { colors } from '../theme/tokens';
+import { Compass } from 'lucide-react';
 
 export const BrandHeader: React.FC = () => {
   return (
@@ -12,109 +13,134 @@ export const BrandHeader: React.FC = () => {
         padding: '16px 20px',
         borderBottom: `1px solid ${colors.softBorder}`,
         backgroundColor: colors.warmIvory,
+        position: 'relative',
+        zIndex: 10,
       }}
       aria-label="Application Header"
     >
-      {/* Brand Monogram + Name */}
+      {/* Brand Identity */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '12px',
         }}
       >
+        {/* Brand Icon Mark */}
         <div
           style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '10px',
+            width: '42px',
+            height: '42px',
+            borderRadius: '12px',
             backgroundColor: colors.deepForest,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(23, 43, 42, 0.12)',
+            boxShadow: '2px 3px 0px rgba(23, 43, 42, 0.25)',
+            border: `1.5px solid ${colors.deepForest}`,
+            position: 'relative',
+            overflow: 'hidden',
           }}
           aria-hidden="true"
         >
-          {/* Minimal mobility symbol: geometric route-marker & dynamic wheel */}
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={colors.freshLime}
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="3" fill={colors.freshLime} />
-            <path d="M12 2v4" />
-            <path d="M12 18v4" />
-            <path d="M4.93 4.93l2.83 2.83" />
-            <path d="M16.24 16.24l2.83 2.83" />
-            <path d="M2 12h4" />
-            <path d="M18 12h4" />
-          </svg>
+          {/* Subtle Fresh Lime corner fold / accent */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              right: '-10px',
+              width: '20px',
+              height: '20px',
+              backgroundColor: colors.freshLime,
+              transform: 'rotate(45deg)',
+            }}
+          />
+          <Compass size={22} color={colors.freshLime} strokeWidth={2.4} />
         </div>
 
         <div>
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '22px',
-              fontWeight: 800,
-              letterSpacing: '1.2px',
-              color: colors.deepForest,
-              lineHeight: 1,
-              margin: 0,
-            }}
-          >
-            SAFAR
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '24px',
+                fontWeight: 800,
+                letterSpacing: '1px',
+                color: colors.deepForest,
+                lineHeight: 1,
+                margin: 0,
+              }}
+            >
+              SAFAR
+            </h1>
+            <span
+              style={{
+                backgroundColor: colors.freshLime,
+                color: colors.deepForest,
+                fontSize: '9px',
+                fontWeight: 800,
+                padding: '2px 6px',
+                borderRadius: '6px',
+                letterSpacing: '0.5px',
+                border: `1px solid ${colors.deepForest}`,
+              }}
+            >
+              सफ़र
+            </span>
+          </div>
+
           <span
             style={{
-              fontSize: '10px',
+              fontSize: '11px',
               fontWeight: 600,
-              letterSpacing: '0.8px',
+              letterSpacing: '0.6px',
               color: colors.mutedGrey,
               textTransform: 'uppercase',
               display: 'block',
-              marginTop: '3px',
+              marginTop: '4px',
             }}
           >
-            Mobility
+            Urban Mobility India
           </span>
         </div>
       </div>
 
-      {/* Country & Network Indicator */}
+      {/* Live City Badge */}
       <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: '6px',
-          padding: '4px 10px',
+          padding: '6px 12px',
           borderRadius: '9999px',
           backgroundColor: colors.pureWhite,
           border: `1px solid ${colors.softBorder}`,
-          fontSize: '11px',
-          fontWeight: 600,
-          color: colors.deepForest,
-          letterSpacing: '0.4px',
+          boxShadow: '0 1px 3px rgba(23, 43, 42, 0.05)',
         }}
       >
         <span
           style={{
-            width: '7px',
-            height: '7px',
+            width: '8px',
+            height: '8px',
             borderRadius: '50%',
             backgroundColor: colors.freshLime,
             border: `1.5px solid ${colors.deepForest}`,
+            boxShadow: '0 0 6px rgba(201, 243, 106, 0.8)',
             display: 'inline-block',
           }}
           aria-hidden="true"
         />
-        <span>INDIA</span>
+        <span
+          style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            color: colors.deepForest,
+            fontFamily: 'var(--font-display)',
+            letterSpacing: '0.4px',
+          }}
+        >
+          INDIA LIVE
+        </span>
       </div>
     </header>
   );
