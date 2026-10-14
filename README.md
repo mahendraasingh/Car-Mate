@@ -15,30 +15,32 @@
 
 ---
 
-## 🎨 Design System & Color Palette
+## 🎨 Design System & Mixed-Media Visual Language
 
-The interface adheres to an intentional, restrained Indian urban mobility palette:
+The redesigned welcome screen is inspired by contemporary mixed-media editorial design (combining real urban architecture and street photography from the `img/` reference archive with vibrant 2D doodle illustrations, route trajectories, and commuter annotations).
 
 | Token Name | Hex Code | Usage |
 |---|---|---|
-| **Warm Ivory** | `#F5F2EA` | Primary screen background & calm canvas |
-| **Deep Forest** | `#172B2A` | Headings, primary CTA buttons, icons |
-| **Fresh Lime** | `#C9F36A` | High-visibility accents, badges, indicator lights |
-| **Pure White** | `#FFFFFF` | Elevated cards, surfaces, clean container tiles |
-| **Muted Grey** | `#73776F` | Secondary copy, descriptions, subtle subtext |
-| **Soft Border** | `#E3E0D7` | Subtle dividers, card borders, borders |
+| **Warm Ivory** | `#F5F2EA` | Primary screen canvas & background |
+| **Deep Forest** | `#172B2A` | Editorial headings, bold outlines, primary CTA |
+| **Fresh Lime** | `#C9F36A` | High-visibility route glow, live status, badges |
+| **Pure White** | `#FFFFFF` | Card surfaces, clean contrast containers |
+| **Muted Grey** | `#73776F` | Secondary copy and subtle captions |
+| **Soft Border** | `#E3E0D7` | Hairline dividers and card borders |
+| **Doodle Yellow** | `#FFDE59` | Hand-drawn star accents and rickshaw canopy |
+| **Doodle Coral** | `#FF5E4D` | Destination pin and route marker nodes |
 
 ---
 
 ## 📱 Welcome Screen Architecture
 
-- **`BrandHeader`**: Minimalist header with SAFAR brand monogram, typography, and localized `INDIA` indicator.
-- **`HeroIllustration`**: Custom responsive SVG artwork featuring an authentic Indian auto-rickshaw, modern city cab, dynamic pooling trajectory, and metro viaduct silhouette.
-- **`Main Content`**: Headline (*"Your City. Your Ride. Your Way."*) and supportive tagline.
-- **`MobilityBadges`**: Feature indicator chips for Cab, Auto, and Ride Pool.
-- **`ActionButtons`**: High-accessibility primary button (*"Get Started"*, 50px touch target) and secondary authentication placeholders (*"Log In"*, *"Sign Up"*).
-- **`WelcomeFooter`**: Minimal footer (*"Made for the way India moves."*).
-- **`Preview Switcher`**: Dual mode desktop viewing (Simulated iPhone / Android mobile frame and fluid responsive display).
+- **`BrandHeader`**: Bilingual SAFAR mark with Devanagari badge (`सफ़र`), compass mobility emblem, and live city ticker.
+- **`HeroVisual`**: Mixed-media composition blending genuine urban street photography with 2D doodle transportation overlays (Indian auto-rickshaw, city cab, pooling route trajectory, and floating status tags).
+- **`MainContent`**: Prominent typography hierarchy (*"Your City. Your Ride. Your Way."*) with custom hand-drawn highlight brush stroke and supporting transit copy.
+- **`MobilityCards`**: Interactive mode selector for **Auto**, **Cab**, and **Ride Pool** featuring live state transitions, checkmark badges, and doodle borders.
+- **`ActionButtons`**: High-accessibility 52px primary action (*"Get Started"*) with tactile sticker shadow and secondary auth buttons (*"Log In"*, *"Sign Up"*) with accessible feedback notification.
+- **`WelcomeFooter`**: Minimal footnote (*"Made for the way India moves."*) with hand-drawn route divider.
+- **`App Preview Shell`**: Adaptive presentation toggle for desktop review (Simulated Smartphone Frame / Fluid Responsive View).
 
 ---
 
