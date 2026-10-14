@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { colors } from '../theme/tokens';
-import { ArrowRight, Info } from 'lucide-react';
+import { colors, shadows, dimensions } from '../theme/tokens';
+import { ArrowRight, Info, X } from 'lucide-react';
 
 export const ActionButtons: React.FC = () => {
-  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
+  const [feedbackInfo, setFeedbackInfo] = useState<string | null>(null);
 
-  const handleActionClick = (buttonName: string) => {
-    setFeedbackMessage(`${buttonName} placeholder: Authentication & onboarding will be enabled in the next phase.`);
+  const handleAction = (label: string) => {
+    setFeedbackInfo(`${label} placeholder: Authentication and ride booking will open in the next phase.`);
     const timer = setTimeout(() => {
-      setFeedbackMessage(null);
-    }, 3500);
+      setFeedbackInfo(null);
+    }, 4000);
     return () => clearTimeout(timer);
   };
 
@@ -21,101 +21,108 @@ export const ActionButtons: React.FC = () => {
         flexDirection: 'column',
         gap: '12px',
         marginTop: 'auto',
-        paddingTop: '8px',
       }}
     >
-      {/* Non-intrusive Placeholder Feedback Toast */}
-      {feedbackMessage && (
+      {/* Honest Accessible Toast Feedback */}
+      {feedbackInfo && (
         <div
           role="status"
           aria-live="polite"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '10px',
             backgroundColor: colors.pureWhite,
-            border: `1px solid ${colors.softBorder}`,
-            padding: '10px 14px',
-            borderRadius: '10px',
+            border: `1.5px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '12px 14px',
             fontSize: '12px',
+            fontWeight: 600,
             color: colors.deepForest,
-            boxShadow: '0 4px 12px rgba(23, 43, 42, 0.08)',
+            boxShadow: shadows.doodleSticker,
             animation: 'fadeIn 0.25s ease-out forwards',
           }}
         >
-          <Info size={16} color={colors.deepForest} />
-          <span style={{ flex: 1, lineHeight: 1.3 }}>{feedbackMessage}</span>
+          <Info size={16} color={colors.deepForest} strokeWidth={2.4} />
+          <span style={{ flex: 1, lineHeight: 1.35 }}>{feedbackInfo}</span>
           <button
-            onClick={() => setFeedbackMessage(null)}
+            type="button"
+            onClick={() => setFeedbackInfo(null)}
             style={{
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               color: colors.mutedGrey,
-              fontSize: '14px',
-              padding: '2px 4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '4px',
             }}
-            aria-label="Dismiss message"
+            aria-label="Dismiss notice"
           >
-            ✕
+            <X size={14} />
           </button>
         </div>
       )}
 
-      {/* Primary Action Button: Get Started */}
+      {/* Primary Action Button: GET STARTED */}
       <button
         id="btn-get-started"
         type="button"
-        onClick={() => handleActionClick('Get Started')}
+        onClick={() => handleAction('Get Started')}
         aria-label="Get Started with SAFAR"
         style={{
           width: '100%',
-          height: '50px',
+          height: dimensions.primaryButtonHeight,
           minHeight: '48px',
           backgroundColor: colors.deepForest,
           color: colors.pureWhite,
-          borderRadius: '14px',
-          border: 'none',
-          fontSize: '15px',
+          borderRadius: '16px',
+          border: `2px solid ${colors.deepForest}`,
+          fontSize: '16px',
           fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          letterSpacing: '0.3px',
+          fontWeight: 800,
+          letterSpacing: '0.4px',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '8px',
-          boxShadow: '0 3px 10px rgba(23, 43, 42, 0.16)',
+          gap: '10px',
+          boxShadow: shadows.doodleSticker,
           transition: 'transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease',
         }}
         onMouseDown={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(0.98)';
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(2px)';
+          (e.currentTarget as HTMLElement).style.boxShadow = '0px 1px 0px #172B2A';
         }}
         onMouseUp={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
+          (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
+          (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
         }}
       >
         <span>Get Started</span>
         <div
           style={{
-            width: '24px',
-            height: '24px',
+            width: '26px',
+            height: '26px',
             borderRadius: '50%',
             backgroundColor: colors.freshLime,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            border: `1.5px solid ${colors.deepForest}`,
           }}
           aria-hidden="true"
         >
-          <ArrowRight size={14} color={colors.deepForest} strokeWidth={2.8} />
+          <ArrowRight size={14} color={colors.deepForest} strokeWidth={3} />
         </div>
       </button>
 
-      {/* Authentication Buttons: Log In & Sign Up */}
+      {/* Secondary Authentication Placeholders */}
       <div
         style={{
           display: 'grid',
@@ -127,19 +134,20 @@ export const ActionButtons: React.FC = () => {
         <button
           id="btn-login"
           type="button"
-          onClick={() => handleActionClick('Log In')}
+          onClick={() => handleAction('Log In')}
           aria-label="Log In"
           style={{
-            height: '48px',
+            height: dimensions.secondaryButtonHeight,
             minHeight: '44px',
             backgroundColor: colors.pureWhite,
             color: colors.deepForest,
-            borderRadius: '12px',
+            borderRadius: '14px',
             border: `1.5px solid ${colors.softBorder}`,
             fontSize: '14px',
             fontFamily: 'var(--font-display)',
-            fontWeight: 600,
+            fontWeight: 700,
             cursor: 'pointer',
+            boxShadow: '0 1px 3px rgba(23, 43, 42, 0.04)',
             transition: 'all 0.15s ease',
           }}
           onMouseDown={(e) => {
@@ -158,18 +166,18 @@ export const ActionButtons: React.FC = () => {
         <button
           id="btn-signup"
           type="button"
-          onClick={() => handleActionClick('Sign Up')}
+          onClick={() => handleAction('Sign Up')}
           aria-label="Sign Up"
           style={{
-            height: '48px',
+            height: dimensions.secondaryButtonHeight,
             minHeight: '44px',
             backgroundColor: colors.warmIvory,
             color: colors.deepForest,
-            borderRadius: '12px',
+            borderRadius: '14px',
             border: `1.5px solid ${colors.deepForest}`,
             fontSize: '14px',
             fontFamily: 'var(--font-display)',
-            fontWeight: 600,
+            fontWeight: 700,
             cursor: 'pointer',
             transition: 'all 0.15s ease',
           }}
