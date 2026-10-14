@@ -32,15 +32,15 @@ The redesigned welcome screen is inspired by contemporary mixed-media editorial 
 
 ---
 
-## 📱 Welcome Screen Architecture
+## 📱 Front-Loading Storytelling Architecture
 
-- **`BrandHeader`**: Bilingual SAFAR mark with Devanagari badge (`सफ़र`), compass mobility emblem, and live city ticker.
-- **`HeroVisual`**: Mixed-media composition blending genuine urban street photography with 2D doodle transportation overlays (Indian auto-rickshaw, city cab, pooling route trajectory, and floating status tags).
-- **`MainContent`**: Prominent typography hierarchy (*"Your City. Your Ride. Your Way."*) with custom hand-drawn highlight brush stroke and supporting transit copy.
-- **`MobilityCards`**: Interactive mode selector for **Auto**, **Cab**, and **Ride Pool** featuring live state transitions, checkmark badges, and doodle borders.
-- **`ActionButtons`**: High-accessibility 52px primary action (*"Get Started"*) with tactile sticker shadow and secondary auth buttons (*"Log In"*, *"Sign Up"*) with accessible feedback notification.
-- **`WelcomeFooter`**: Minimal footnote (*"Made for the way India moves."*) with hand-drawn route divider.
-- **`App Preview Shell`**: Adaptive presentation toggle for desktop review (Simulated Smartphone Frame / Fluid Responsive View).
+- **`BrandHeader`**: Expansive sticky header with bilingual SAFAR mark (`सफ़र`), compass emblem, and live dispatch indicator.
+- **`TransitTicker`**: Continuous urban transit marquee highlighting zero surge autos, pooling savings, and metro coverage.
+- **`HeroVisual`**: Front-loading panoramic mixed-media hero blending genuine urban street photography with 2D doodle transportation overlays (Indian auto-rickshaw, city cab, glowing green route trajectory, and commuter nodes).
+- **`MainContent`**: Large-scale storytelling typography (*"Your City. Your Ride. Your Way."*) with custom hand-drawn highlight brush stroke and chapter narrative.
+- **`MobilityCards`**: Wide 3-column storytelling showcase for **Auto-Rickshaw** ("Gully Master"), **City Cab** ("All-Weather Comfort"), and **Ride Pooling** ("Smart Together") with live selection perks.
+- **`ActionButtons`**: Prominent primary CTA cluster (*"Get Started — Instant Free Ride Pass"*) with tactile sticker shadow and secondary auth buttons (*"Log In"*, *"Sign Up"*).
+- **`WelcomeFooter`**: Comprehensive Indian metro network tags (Delhi NCR, Bengaluru, Mumbai, Hyderabad, Pune, Kolkata) and brand signature.
 
 ---
 
