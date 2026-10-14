@@ -1,28 +1,28 @@
 import React from 'react';
 import { colors, shadows } from '../theme/tokens';
-import { Sparkles, MapPin } from 'lucide-react';
+import { Sparkles, MapPin, Navigation, Compass } from 'lucide-react';
 
 export const HeroVisual: React.FC = () => {
   return (
     <div
       style={{
         width: '100%',
-        maxWidth: '460px',
+        maxWidth: '1200px',
         margin: '0 auto',
         position: 'relative',
       }}
     >
-      {/* Mixed-Media Hero Frame */}
+      {/* Front-Loading Panoramic Story Frame */}
       <div
         style={{
           width: '100%',
-          height: '240px',
-          borderRadius: '24px',
+          height: 'clamp(280px, 45vh, 440px)',
+          borderRadius: '32px',
           overflow: 'hidden',
           position: 'relative',
           backgroundColor: colors.pureWhite,
-          border: `2px solid ${colors.deepForest}`,
-          boxShadow: shadows.card,
+          border: `3px solid ${colors.deepForest}`,
+          boxShadow: shadows.doodleStickerLg,
         }}
       >
         {/* Real City Background Photo from Reference Assets */}
@@ -33,8 +33,8 @@ export const HeroVisual: React.FC = () => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center 40%',
-            filter: 'contrast(1.05) saturate(1.1) brightness(0.95)',
+            objectPosition: 'center 45%',
+            filter: 'contrast(1.08) saturate(1.15) brightness(0.92)',
           }}
         />
 
@@ -44,14 +44,14 @@ export const HeroVisual: React.FC = () => {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(180deg, rgba(23, 43, 42, 0.25) 0%, rgba(245, 242, 234, 0.45) 50%, rgba(23, 43, 42, 0.75) 100%)',
+              'linear-gradient(180deg, rgba(23, 43, 42, 0.35) 0%, rgba(245, 242, 234, 0.4) 45%, rgba(23, 43, 42, 0.85) 100%)',
             mixBlendMode: 'multiply',
           }}
         />
 
         {/* 2D Mixed-Media Doodle & Transportation Overlay (SVG) */}
         <svg
-          viewBox="0 0 460 240"
+          viewBox="0 0 900 400"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{
@@ -62,182 +62,234 @@ export const HeroVisual: React.FC = () => {
             pointerEvents: 'none',
           }}
         >
-          {/* Hand-Drawn Doodle Route Trajectory */}
+          {/* Glowing Animated Doodle Route Curve */}
           <path
-            d="M 40 185 Q 120 110, 230 140 T 420 85"
+            d="M 60 320 C 220 180, 420 340, 640 220 S 840 280, 860 160"
             stroke={colors.freshLime}
-            strokeWidth="4"
-            strokeDasharray="8 6"
+            strokeWidth="6"
+            strokeDasharray="14 10"
             strokeLinecap="round"
             style={{
-              filter: 'drop-shadow(0px 2px 4px rgba(23, 43, 42, 0.6))',
+              filter: 'drop-shadow(0px 3px 8px rgba(23, 43, 42, 0.8))',
             }}
           />
 
           {/* Doodle Arrowhead at Route End */}
           <path
-            d="M 410 75 L 425 85 L 412 97"
+            d="M 845 145 L 865 160 L 848 178"
             stroke={colors.freshLime}
-            strokeWidth="3.5"
+            strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
 
-          {/* Hand-Drawn Sparkles / Star Doodles */}
-          <g transform="translate(65, 35)">
-            <path
-              d="M 12 0 L 15 8 L 24 12 L 15 16 L 12 24 L 9 16 L 0 12 L 9 8 Z"
-              fill={colors.doodleYellow}
-              stroke={colors.deepForest}
-              strokeWidth="1.5"
-            />
-          </g>
-          <g transform="translate(390, 140)">
-            <path
-              d="M 8 0 L 10 5 L 16 8 L 10 11 L 8 16 L 6 11 L 0 8 L 6 5 Z"
-              fill={colors.freshLime}
-              stroke={colors.deepForest}
-              strokeWidth="1.2"
-            />
-          </g>
-
-          {/* Pickup Point A Doodle */}
-          <g transform="translate(45, 185)">
-            <circle cx="0" cy="0" r="14" fill={colors.pureWhite} stroke={colors.deepForest} strokeWidth="2.5" />
-            <circle cx="0" cy="0" r="6" fill={colors.doodleCoral} />
-            <text x="0" y="4" textAnchor="middle" fontSize="9" fontWeight="800" fill={colors.pureWhite} fontFamily="sans-serif">
+          {/* Route Milestones with Commuter Dots */}
+          {/* Pickup A */}
+          <g transform="translate(70, 320)">
+            <circle cx="0" cy="0" r="22" fill={colors.pureWhite} stroke={colors.deepForest} strokeWidth="3.5" />
+            <circle cx="0" cy="0" r="9" fill={colors.doodleCoral} />
+            <text x="0" y="5" textAnchor="middle" fontSize="12" fontWeight="800" fill={colors.pureWhite} fontFamily="sans-serif">
               A
             </text>
           </g>
 
-          {/* Midpoint Pooling Node Doodle (Shared Commuters) */}
-          <g transform="translate(230, 140)">
-            <circle cx="0" cy="0" r="18" fill={colors.freshLime} stroke={colors.deepForest} strokeWidth="2.5" />
-            <circle cx="-4" cy="-2" r="3" fill={colors.deepForest} />
-            <circle cx="4" cy="-2" r="3" fill={colors.deepForest} />
-            <path d="M-6 6 Q 0 11, 6 6" stroke={colors.deepForest} strokeWidth="1.8" strokeLinecap="round" fill="none" />
+          {/* Ride Pool Node (Commuters Sharing Journey) */}
+          <g transform="translate(420, 280)">
+            <circle cx="0" cy="0" r="28" fill={colors.freshLime} stroke={colors.deepForest} strokeWidth="3.5" />
+            <circle cx="-6" cy="-4" r="4.5" fill={colors.deepForest} />
+            <circle cx="6" cy="-4" r="4.5" fill={colors.deepForest} />
+            <path d="M-8 8 Q 0 16, 8 8" stroke={colors.deepForest} strokeWidth="2.5" strokeLinecap="round" fill="none" />
           </g>
 
-          {/* INDIAN AUTO-RICKSHAW DOODLE STICKER */}
-          <g transform="translate(70, 120)">
-            {/* White sticker border */}
+          {/* Destination Drop Pin */}
+          <g transform="translate(860, 155)">
+            <circle cx="0" cy="0" r="16" fill={colors.doodleYellow} stroke={colors.deepForest} strokeWidth="3" />
+            <circle cx="0" cy="0" r="6" fill={colors.deepForest} />
+          </g>
+
+          {/* AUTHENTIC INDIAN AUTO-RICKSHAW DOODLE */}
+          <g transform="translate(130, 210)">
+            {/* White sticker silhouette */}
             <path
-              d="M 16 28 L 24 44 L 88 44 L 92 26 L 76 12 L 36 12 Z"
+              d="M 20 45 L 35 75 L 145 75 L 152 40 L 125 18 L 60 18 Z"
               fill={colors.pureWhite}
               stroke={colors.pureWhite}
-              strokeWidth="6"
+              strokeWidth="10"
               strokeLinejoin="round"
             />
-            {/* Auto Rickshaw Green & Lime Body */}
+            {/* Rickshaw Green Body */}
             <path
-              d="M 16 28 L 24 44 L 88 44 L 92 26 L 76 12 L 36 12 Z"
+              d="M 20 45 L 35 75 L 145 75 L 152 40 L 125 18 L 60 18 Z"
               fill={colors.deepForest}
               stroke={colors.deepForest}
-              strokeWidth="2"
+              strokeWidth="3"
               strokeLinejoin="round"
             />
-            {/* Canopy */}
-            <path d="M 32 12 Q 56 6, 76 12 L 74 18 L 30 18 Z" fill={colors.doodleYellow} stroke={colors.deepForest} strokeWidth="1.5" />
-            <path d="M 28 26 L 90 26 L 87 31 L 25 31 Z" fill={colors.freshLime} />
-            {/* Windshield & Cabin */}
-            <path d="M 46 16 L 73 16 L 75 25 L 44 25 Z" fill={colors.warmIvory} stroke={colors.deepForest} strokeWidth="1.2" />
-            {/* Headlight Beam */}
-            <circle cx="16" cy="30" r="4" fill={colors.doodleYellow} stroke={colors.deepForest} strokeWidth="1.5" />
-            <polygon points="12,30 0,26 0,34" fill={colors.doodleYellow} opacity="0.8" />
+            {/* Yellow Canopy Roof */}
+            <path d="M 50 18 Q 95 8, 125 18 L 122 28 L 46 28 Z" fill={colors.doodleYellow} stroke={colors.deepForest} strokeWidth="2.5" />
+            {/* Lime Side Stripe */}
+            <path d="M 40 40 L 148 40 L 144 48 L 36 48 Z" fill={colors.freshLime} />
+            {/* Open Passenger Cabin */}
+            <path d="M 72 26 L 118 26 L 120 42 L 68 42 Z" fill={colors.warmIvory} stroke={colors.deepForest} strokeWidth="2" />
+            {/* Front Headlight Beam */}
+            <circle cx="24" cy="48" r="6" fill={colors.doodleYellow} stroke={colors.deepForest} strokeWidth="2" />
+            <polygon points="18,48 0,40 0,56" fill={colors.doodleYellow} opacity="0.85" />
             {/* Wheels */}
-            <circle cx="26" cy="44" r="8" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="1.5" />
-            <circle cx="26" cy="44" r="3" fill={colors.freshLime} />
-            <circle cx="78" cy="44" r="8.5" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="1.5" />
-            <circle cx="78" cy="44" r="3" fill={colors.freshLime} />
+            <circle cx="42" cy="74" r="14" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="3" />
+            <circle cx="42" cy="74" r="5" fill={colors.freshLime} />
+            <circle cx="128" cy="74" r="14" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="3" />
+            <circle cx="128" cy="74" r="5" fill={colors.freshLime} />
           </g>
 
-          {/* CITY CAB (SEDAN) DOODLE STICKER */}
-          <g transform="translate(255, 140)">
-            {/* White sticker border */}
+          {/* MODERN CITY CAB (SEDAN) DOODLE */}
+          <g transform="translate(480, 230)">
+            {/* White sticker silhouette */}
             <path
-              d="M 18 36 C 24 26, 42 22, 54 18 L 72 10 C 84 9, 114 9, 126 18 L 140 22 C 150 26, 154 32, 154 38 L 14 38 Z"
+              d="M 25 50 C 35 36, 60 30, 80 25 L 115 14 C 135 12, 175 12, 195 24 L 220 30 C 235 36, 240 44, 240 54 L 20 54 Z"
               fill={colors.pureWhite}
               stroke={colors.pureWhite}
-              strokeWidth="6"
+              strokeWidth="10"
               strokeLinejoin="round"
             />
-            {/* Car Body */}
+            {/* White Sedan Body */}
             <path
-              d="M 18 36 C 24 26, 42 22, 54 18 L 72 10 C 84 9, 114 9, 126 18 L 140 22 C 150 26, 154 32, 154 38 L 14 38 Z"
+              d="M 25 50 C 35 36, 60 30, 80 25 L 115 14 C 135 12, 175 12, 195 24 L 220 30 C 235 36, 240 44, 240 54 L 20 54 Z"
               fill={colors.pureWhite}
               stroke={colors.deepForest}
-              strokeWidth="2"
+              strokeWidth="3"
               strokeLinejoin="round"
             />
             {/* Windows */}
-            <path d="M 52 20 L 70 12 L 94 12 L 94 22 L 48 22 Z" fill={colors.deepForest} />
-            <path d="M 98 12 L 120 18 L 132 22 L 98 22 Z" fill={colors.deepForest} />
-            {/* Taxi Roof Sign */}
-            <rect x="88" y="5" width="16" height="5" rx="2" fill={colors.freshLime} stroke={colors.deepForest} strokeWidth="1.2" />
-            {/* Headlights */}
-            <polygon points="152,30 162,28 162,34" fill={colors.freshLime} opacity="0.9" />
+            <path d="M 85 28 L 112 17 L 148 17 L 148 32 L 80 32 Z" fill={colors.deepForest} />
+            <path d="M 154 17 L 188 25 L 205 32 L 154 32 Z" fill={colors.deepForest} />
+            {/* Fresh Lime Taxi Roof Light */}
+            <rect x="135" y="6" width="24" height="8" rx="4" fill={colors.freshLime} stroke={colors.deepForest} strokeWidth="2" />
             {/* Wheels */}
-            <circle cx="42" cy="40" r="9" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="1.5" />
-            <circle cx="42" cy="40" r="3.5" fill={colors.doodleYellow} />
-            <circle cx="126" cy="40" r="9" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="1.5" />
-            <circle cx="126" cy="40" r="3.5" fill={colors.doodleYellow} />
+            <circle cx="65" cy="56" r="14" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="3" />
+            <circle cx="65" cy="56" r="5" fill={colors.doodleYellow} />
+            <circle cx="195" cy="56" r="14" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="3" />
+            <circle cx="195" cy="56" r="5" fill={colors.doodleYellow} />
           </g>
         </svg>
 
-        {/* Floating Editorial Badge 1: POOLING ACTIVE */}
+        {/* Floating Story Sticker 1: Top-Left */}
         <div
           style={{
             position: 'absolute',
-            top: '14px',
-            left: '16px',
+            top: '20px',
+            left: '24px',
             backgroundColor: colors.pureWhite,
-            border: `1.5px solid ${colors.deepForest}`,
-            borderRadius: '10px',
-            padding: '4px 10px',
+            border: `2px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '8px 16px',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '8px',
             boxShadow: shadows.doodleSticker,
           }}
         >
-          <Sparkles size={13} color={colors.deepForest} />
+          <Sparkles size={16} color={colors.deepForest} />
+          <div>
+            <div
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '13px',
+                fontWeight: 800,
+                color: colors.deepForest,
+                lineHeight: 1.1,
+              }}
+            >
+              RIDE POOLING ACTIVE
+            </div>
+            <div style={{ fontSize: '10px', color: colors.mutedGrey, fontWeight: 600 }}>
+              Save up to 40% & reduce traffic
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Story Sticker 2: Top-Right */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '20px',
+            right: '24px',
+            backgroundColor: colors.doodleYellow,
+            border: `2px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '8px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            boxShadow: shadows.doodleSticker,
+          }}
+        >
+          <Navigation size={16} color={colors.deepForest} strokeWidth={2.6} />
           <span
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 800,
               color: colors.deepForest,
               letterSpacing: '0.4px',
             }}
           >
-            SMART POOLING
+            NO SURGE ON AUTOS
           </span>
         </div>
 
-        {/* Floating Editorial Badge 2: CITY TRANSIT */}
+        {/* Floating Story Sticker 3: Bottom-Left Location Annotation */}
         <div
           style={{
             position: 'absolute',
-            bottom: '14px',
-            right: '16px',
-            backgroundColor: colors.freshLime,
-            border: `1.5px solid ${colors.deepForest}`,
-            borderRadius: '10px',
-            padding: '5px 12px',
+            bottom: '20px',
+            left: '24px',
+            backgroundColor: colors.pureWhite,
+            border: `2px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '8px 14px',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '8px',
             boxShadow: shadows.doodleSticker,
           }}
         >
-          <MapPin size={13} color={colors.deepForest} strokeWidth={2.5} />
+          <MapPin size={15} color={colors.doodleCoral} strokeWidth={2.6} />
           <span
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '11px',
+              fontSize: '12px',
               fontWeight: 800,
               color: colors.deepForest,
-              letterSpacing: '0.3px',
+            }}
+          >
+            Gully to Highway • 2.5 Min ETA
+          </span>
+        </div>
+
+        {/* Floating Story Sticker 4: Bottom-Right Mode Pill */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '20px',
+            right: '24px',
+            backgroundColor: colors.freshLime,
+            border: `2px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '8px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            boxShadow: shadows.doodleSticker,
+          }}
+        >
+          <Compass size={16} color={colors.deepForest} strokeWidth={2.6} />
+          <span
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '12px',
+              fontWeight: 800,
+              color: colors.deepForest,
+              letterSpacing: '0.4px',
             }}
           >
             CAB • AUTO • POOL
