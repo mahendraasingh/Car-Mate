@@ -9,6 +9,7 @@ export const SimulatedMap: React.FC<MapAdapterProps> = ({
   destination,
   driverMarker,
   progressPercent = 0,
+  rideMode = 'solo',
   style,
 }) => {
   // SVG Canvas dimensions: 400x320
@@ -194,6 +195,20 @@ export const SimulatedMap: React.FC<MapAdapterProps> = ({
             <rect x="-28" y="-30" width="56" height="18" rx="9" fill={colors.deepForest} stroke={colors.pureWhite} strokeWidth="1.5" />
             <text x="0" y="-18" fontSize="8" fontWeight="800" fill={colors.pureWhite} textAnchor="middle" fontFamily="sans-serif">
               {destination ? 'DROP' : 'DEST'}
+            </text>
+          </g>
+        )}
+
+        {/* SHARED RIDE CO-RIDER WAYPOINT NODE */}
+        {rideMode === 'shared' && (mode === 'route_overview' || mode === 'trip_active' || mode === 'trip_completed') && (
+          <g transform="translate(195, 145)">
+            <circle cx="0" cy="0" r="14" fill={colors.freshLime} stroke={colors.deepForest} strokeWidth="2" />
+            <circle cx="-3" cy="-2" r="2" fill={colors.deepForest} />
+            <circle cx="3" cy="-2" r="2" fill={colors.deepForest} />
+            <path d="M-4 3 Q 0 7, 4 3" stroke={colors.deepForest} strokeWidth="1.5" fill="none" />
+            <rect x="-38" y="16" width="76" height="15" rx="7.5" fill={colors.pureWhite} stroke={colors.deepForest} strokeWidth="1.2" />
+            <text x="0" y="27" fontSize="7" fontWeight="800" fill={colors.deepForest} textAnchor="middle" fontFamily="sans-serif">
+              CO-RIDER POOL
             </text>
           </g>
         )}

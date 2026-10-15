@@ -1,70 +1,108 @@
 import React from 'react';
 import { colors } from '../../theme/tokens';
-import type { VehicleCategory, VehicleOption } from '../../types/passenger';
-import { Users, Clock, Check, Sparkles } from 'lucide-react';
+import type { VehicleCategory, RideMode } from '../../types/passenger';
+import { Users, User, Clock, Check, Sparkles, Leaf, Zap } from 'lucide-react';
 
 interface VehicleSelectionProps {
+  rideMode: RideMode;
+  onSelectRideMode: (mode: RideMode) => void;
   selectedCategory: VehicleCategory;
   onSelectCategory: (category: VehicleCategory) => void;
   distanceKm?: number;
 }
 
-export const VEHICLE_OPTIONS: VehicleOption[] = [
+interface DynamicTierConfig {
+  id: VehicleCategory;
+  name: string;
+  hindiName: string;
+  soloTitle: string;
+  sharedTitle: string;
+  soloDesc: string;
+  sharedDesc: string;
+  soloCapacity: string;
+  sharedCapacity: string;
+  baseFare: number;
+  perKmRate: number;
+  arrivalMin: number;
+  accentColor: string;
+  soloBadge: string;
+  sharedBadge: string;
+}
+
+const VEHICLE_CONFIGS: DynamicTierConfig[] = [
   {
     id: 'auto',
     name: 'Auto',
     hindiName: 'ऑटो',
-    categoryTitle: 'GULLY MASTER',
-    description: 'Quick point-to-point rickshaw for short city hops with zero surge.',
-    capacity: '3 seats',
-    demoBaseFare: 29,
-    demoPerKmRate: 11,
-    estimatedArrivalMin: 2,
+    soloTitle: 'SOLO AUTO',
+    sharedTitle: 'SHARED AUTO',
+    soloDesc: 'Direct point-to-point rickshaw for quick city hops with zero surge.',
+    sharedDesc: 'Share route seat with 1 co-rider along the way • Save 40% fare.',
+    soloCapacity: '3 seats',
+    sharedCapacity: '1-2 seats',
+    baseFare: 29,
+    perKmRate: 11,
+    arrivalMin: 2,
     accentColor: colors.doodleYellow,
-    badgeText: 'Zero Surge',
+    soloBadge: 'Zero Surge',
+    sharedBadge: 'Save 40%',
   },
   {
     id: 'small_cab',
     name: 'Small Cab',
     hindiName: 'मिनी',
-    categoryTitle: 'ECONOMICAL CAR',
-    description: 'Budget hatchback with chilled AC for affordable solo commutes.',
-    capacity: '4 seats',
-    demoBaseFare: 49,
-    demoPerKmRate: 14,
-    estimatedArrivalMin: 4,
+    soloTitle: 'SOLO HATCHBACK',
+    sharedTitle: 'POOL HATCHBACK',
+    soloDesc: 'Private budget hatchback with chilled AC for affordable solo commutes.',
+    sharedDesc: 'Pool with 1 verified commuter heading in the same direction.',
+    soloCapacity: '4 seats',
+    sharedCapacity: '1-2 seats',
+    baseFare: 49,
+    perKmRate: 14,
+    arrivalMin: 4,
     accentColor: '#E2F0D9',
-    badgeText: 'Value Pick',
+    soloBadge: 'Value Pick',
+    sharedBadge: 'Save 40%',
   },
   {
     id: 'compact_cab',
     name: 'Compact Cab',
     hindiName: 'प्राइम',
-    categoryTitle: 'EVERYDAY SEDAN',
-    description: 'Spacious sedan with top-rated captains for business & airport trips.',
-    capacity: '4 seats',
-    demoBaseFare: 69,
-    demoPerKmRate: 17,
-    estimatedArrivalMin: 3,
+    soloTitle: 'SOLO SEDAN',
+    sharedTitle: 'SMART CARPOOL',
+    soloDesc: 'Private spacious sedan with top-rated captains for business & airport.',
+    sharedDesc: 'Comfortable shared sedan carpool with verified corporate commuters.',
+    soloCapacity: '4 seats',
+    sharedCapacity: '1-2 seats',
+    baseFare: 69,
+    perKmRate: 17,
+    arrivalMin: 3,
     accentColor: colors.pureWhite,
-    badgeText: 'Top Rated',
+    soloBadge: 'Top Rated',
+    sharedBadge: 'Eco Prime',
   },
   {
     id: 'suv',
     name: 'SUV',
     hindiName: 'एक्सएल',
-    categoryTitle: 'EXTRA CAPACITY',
-    description: 'Spacious 6-seater with extra boot space for family & luggage.',
-    capacity: '6 seats',
-    demoBaseFare: 99,
-    demoPerKmRate: 23,
-    estimatedArrivalMin: 6,
+    soloTitle: 'SOLO SUV',
+    sharedTitle: 'SHARED SUV',
+    soloDesc: 'Private spacious 6-seater with huge boot space for family & luggage.',
+    sharedDesc: 'Group ride-pooling with extra legroom and personal space.',
+    soloCapacity: '6 seats',
+    sharedCapacity: '1-3 seats',
+    baseFare: 99,
+    perKmRate: 23,
+    arrivalMin: 6,
     accentColor: colors.freshLime,
-    badgeText: 'Extra Room',
+    soloBadge: 'Extra Room',
+    sharedBadge: 'Max Comfort',
   },
 ];
 
 export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
+  rideMode,
+  onSelectRideMode,
   selectedCategory,
   onSelectCategory,
   distanceKm = 5.2,
@@ -80,6 +118,111 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
       role="radiogroup"
       aria-label="Vehicle Categories"
     >
+      {/* 1. Solo vs Shared Ride Mode Selector */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '8px',
+          backgroundColor: colors.warmIvory,
+          border: `2px solid ${colors.deepForest}`,
+          borderRadius: '16px',
+          padding: '4px',
+          boxShadow: '1px 2px 0px #172B2A',
+        }}
+      >
+        {/* Solo Ride Button */}
+        <button
+          type="button"
+          onClick={() => onSelectRideMode('solo')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            padding: '8px 10px',
+            borderRadius: '12px',
+            border: rideMode === 'solo' ? `2px solid ${colors.deepForest}` : '1.5px solid transparent',
+            backgroundColor: rideMode === 'solo' ? colors.pureWhite : 'transparent',
+            color: colors.deepForest,
+            cursor: 'pointer',
+            boxShadow: rideMode === 'solo' ? '1px 2px 0px #172B2A' : 'none',
+            transition: 'all 0.18s ease',
+          }}
+        >
+          <User size={15} color={colors.deepForest} strokeWidth={2.4} />
+          <div style={{ textAlign: 'left' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '12px',
+                fontWeight: 800,
+                lineHeight: 1.1,
+              }}
+            >
+              Solo Ride
+            </div>
+            <div style={{ fontSize: '9px', fontWeight: 600, color: colors.mutedGrey }}>
+              Private • Direct
+            </div>
+          </div>
+        </button>
+
+        {/* Shared Ride Button */}
+        <button
+          type="button"
+          onClick={() => onSelectRideMode('shared')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            padding: '8px 10px',
+            borderRadius: '12px',
+            border: rideMode === 'shared' ? `2px solid ${colors.deepForest}` : '1.5px solid transparent',
+            backgroundColor: rideMode === 'shared' ? colors.freshLime : 'transparent',
+            color: colors.deepForest,
+            cursor: 'pointer',
+            boxShadow: rideMode === 'shared' ? '1px 2px 0px #172B2A' : 'none',
+            position: 'relative',
+            transition: 'all 0.18s ease',
+          }}
+        >
+          <Users size={15} color={colors.deepForest} strokeWidth={2.4} />
+          <div style={{ textAlign: 'left' }}>
+            <div
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '12px',
+                fontWeight: 800,
+                lineHeight: 1.1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <span>Shared Ride</span>
+              <span
+                style={{
+                  fontSize: '8px',
+                  fontWeight: 800,
+                  backgroundColor: colors.deepForest,
+                  color: colors.freshLime,
+                  padding: '1px 4px',
+                  borderRadius: '4px',
+                }}
+              >
+                40% OFF
+              </span>
+            </div>
+            <div style={{ fontSize: '9px', fontWeight: 700, color: colors.deepForest }}>
+              Pooling • Eco Save
+            </div>
+          </div>
+        </button>
+      </div>
+
+      {/* Mode Sub-banner Info */}
       <div
         style={{
           display: 'flex',
@@ -88,31 +231,23 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
           padding: '0 4px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          {rideMode === 'shared' ? (
+            <Leaf size={12} color="#166534" />
+          ) : (
+            <Zap size={12} color={colors.deepForest} />
+          )}
           <span
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: '11px',
               fontWeight: 800,
               color: colors.deepForest,
-              letterSpacing: '0.6px',
+              letterSpacing: '0.5px',
               textTransform: 'uppercase',
             }}
           >
-            AVAILABLE RIDE TIERS
-          </span>
-          <span
-            style={{
-              fontSize: '9px',
-              fontWeight: 800,
-              backgroundColor: colors.freshLime,
-              color: colors.deepForest,
-              padding: '1px 6px',
-              borderRadius: '6px',
-              border: `1px solid ${colors.deepForest}`,
-            }}
-          >
-            DEMO FARES
+            {rideMode === 'shared' ? 'POOLING TIERS (40% DISCOUNTED)' : 'SOLO TIERS (DIRECT DISPATCH)'}
           </span>
         </div>
         <span
@@ -122,7 +257,7 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
             color: colors.mutedGrey,
           }}
         >
-          {distanceKm.toFixed(1)} km estimated route
+          {distanceKm.toFixed(1)} km route
         </span>
       </div>
 
@@ -135,10 +270,12 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
           width: '100%',
         }}
       >
-        {VEHICLE_OPTIONS.map((option) => {
+        {VEHICLE_CONFIGS.map((option) => {
           const isSelected = selectedCategory === option.id;
-          // Calculate estimated demo fare: baseFare + (distance * perKmRate)
-          const calculatedDemoFare = Math.round(option.demoBaseFare + distanceKm * option.demoPerKmRate);
+          // Calculate standard solo fare: baseFare + (distance * perKmRate)
+          const standardFare = Math.round(option.baseFare + distanceKm * option.perKmRate);
+          // When shared, apply 40% discount (~60% of original fare)
+          const finalFare = rideMode === 'shared' ? Math.round(standardFare * 0.6) : standardFare;
 
           return (
             <button
@@ -237,7 +374,7 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                         color: colors.deepForest,
                       }}
                     >
-                      {option.name}
+                      {rideMode === 'shared' ? `Shared ${option.name}` : option.name}
                     </span>
                     <span
                       style={{
@@ -252,14 +389,14 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                       style={{
                         fontSize: '9px',
                         fontWeight: 800,
-                        backgroundColor: option.id === 'auto' ? colors.doodleYellow : colors.freshLime,
+                        backgroundColor: rideMode === 'shared' ? colors.freshLime : (option.id === 'auto' ? colors.doodleYellow : colors.warmIvory),
                         color: colors.deepForest,
                         padding: '1px 5px',
                         borderRadius: '4px',
                         border: `1px solid ${colors.deepForest}`,
                       }}
                     >
-                      {option.badgeText}
+                      {rideMode === 'shared' ? option.sharedBadge : option.soloBadge}
                     </span>
                   </div>
 
@@ -273,17 +410,17 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {option.description}
+                    {rideMode === 'shared' ? option.sharedDesc : option.soloDesc}
                   </p>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: colors.deepForest }}>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '10px', fontWeight: 700 }}>
                       <Clock size={11} color={colors.deepForest} />
-                      {option.estimatedArrivalMin} min away
+                      {option.arrivalMin} min away
                     </span>
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '10px', fontWeight: 700 }}>
                       <Users size={11} color={colors.deepForest} />
-                      {option.capacity}
+                      {rideMode === 'shared' ? option.sharedCapacity : option.soloCapacity}
                     </span>
                   </div>
                 </div>
@@ -300,16 +437,33 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                   marginLeft: '8px',
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    color: colors.deepForest,
-                  }}
-                >
-                  ₹{calculatedDemoFare}
-                </span>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                  {rideMode === 'shared' && (
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        color: colors.mutedGrey,
+                        textDecoration: 'line-through',
+                        fontWeight: 600,
+                        lineHeight: 1,
+                      }}
+                    >
+                      ₹{standardFare}
+                    </span>
+                  )}
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '14px',
+                      fontWeight: 800,
+                      color: rideMode === 'shared' ? '#166534' : colors.deepForest,
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    ₹{finalFare}
+                  </span>
+                </div>
+
                 <div
                   style={{
                     width: '18px',
@@ -342,8 +496,14 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
         }}
       >
         <Sparkles size={11} color={colors.deepForest} />
-        <span>Fares shown are demo estimates based on distance. No hidden surge.</span>
+        <span>
+          {rideMode === 'shared'
+            ? 'Shared pooling matches you with verified commuters along your path.'
+            : 'Solo ride guarantees non-stop private point-to-point journey with zero detour.'}
+        </span>
       </div>
     </div>
   );
 };
+
+export const VEHICLE_OPTIONS = VEHICLE_CONFIGS;

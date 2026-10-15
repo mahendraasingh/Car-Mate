@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { colors } from '../../theme/tokens';
 import type { MapPoint, MapMode } from '../../types/map';
-import type { BookingStatus, DriverInfo, VehicleCategory } from '../../types/passenger';
+import type { BookingStatus, DriverInfo, VehicleCategory, RideMode } from '../../types/passenger';
 import { locationService, DEMO_PRESET_LOCATIONS } from '../../services/locationService';
 import type { LocationPermissionState } from '../../services/locationService';
 import { profileStorage } from '../../services/profileStorage';
@@ -27,6 +27,7 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
 
   // Booking Flow States
   const [bookingStatus, setBookingStatus] = useState<BookingStatus>('idle');
+  const [rideMode, setRideMode] = useState<RideMode>('solo');
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleCategory>('auto');
   const [driverProgress, setDriverProgress] = useState<number>(0);
   const [assignedDriver, setAssignedDriver] = useState<DriverInfo | null>(null);
@@ -68,7 +69,8 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
   const durationMin = locationService.estimateDurationMin(distanceKm, selectedVehicle);
 
   const currentVehicleOption = VEHICLE_OPTIONS.find((v) => v.id === selectedVehicle) || VEHICLE_OPTIONS[0];
-  const estimatedFare = Math.round(currentVehicleOption.demoBaseFare + distanceKm * currentVehicleOption.demoPerKmRate);
+  const standardFare = Math.round(currentVehicleOption.baseFare + distanceKm * currentVehicleOption.perKmRate);
+  const estimatedFare = rideMode === 'shared' ? Math.round(standardFare * 0.6) : standardFare;
 
   // Start booking transition
   const handleConfirmRide = () => {
@@ -83,8 +85,12 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
         totalTrips: 1840,
         avatarUrl: '',
         vehicleCategory: selectedVehicle,
-        vehicleModel: selectedVehicle === 'auto' ? 'Bajaj Compact 4S RE' : 'Maruti Suzuki WagonR',
-        vehicleColor: selectedVehicle === 'auto' ? 'Yellow & Green' : 'Silky Silver',
+        vehicleModel: selectedVehicle === 'auto'
+          ? (rideMode === 'shared' ? 'Bajaj RE (Shared Auto)' : 'Bajaj Compact 4S RE')
+          : (rideMode === 'shared' ? 'Maruti WagonR (Smart Pool)' : 'Maruti Suzuki WagonR'),
+        vehicleColor: selectedVehicle === 'auto'
+          ? (rideMode === 'shared' ? 'Yellow & Green • Co-rider Ananya aboard' : 'Yellow & Green')
+          : (rideMode === 'shared' ? 'Silky Silver • Co-rider Ananya aboard' : 'Silky Silver'),
         licensePlate: selectedVehicle === 'auto' ? 'DL 1R Q 9421 • Demo' : 'DL 1C AB 4022 • Demo',
         etaMinutes: 2,
         isDemoData: true,
@@ -145,7 +151,9 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
         destinationName: destination.name.split(',')[0],
         farePaid: estimatedFare,
         status: 'completed',
-        driverName: assignedDriver ? `${assignedDriver.name} (${assignedDriver.licensePlate.split('•')[0].trim()})` : 'Captain Vikram',
+        driverName: assignedDriver
+          ? `${assignedDriver.name} (${rideMode === 'shared' ? 'Shared Pool' : 'Solo'} • ${assignedDriver.licensePlate.split('•')[0].trim()})`
+          : 'Captain Vikram',
       });
     }
   };
@@ -335,6 +343,7 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
               : null
           }
           progressPercent={driverProgress}
+          rideMode={rideMode}
         />
 
         {/* Searching Nearby Captains Radar Modal Overlay */}
@@ -375,10 +384,12 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
 
             <div>
               <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '16px', fontWeight: 800, color: colors.deepForest }}>
-                Connecting to Nearby Captain...
+                {rideMode === 'shared' ? 'Finding Shared Route Match...' : 'Connecting to Nearby Captain...'}
               </h3>
               <p style={{ margin: '4px 0 0', fontSize: '11px', color: colors.mutedGrey, fontWeight: 600 }}>
-                Matching verified {selectedVehicle.replace('_', ' ')} captains near your pickup location.
+                {rideMode === 'shared'
+                  ? `Pairing with verified co-riders & ${selectedVehicle.replace('_', ' ')} captain.`
+                  : `Matching direct verified ${selectedVehicle.replace('_', ' ')} captains near pickup.`}
               </p>
             </div>
 
@@ -409,6 +420,7 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
             driver={assignedDriver}
             estimatedFare={estimatedFare}
             progressPercent={driverProgress}
+            rideMode={rideMode}
             onCancelBooking={handleCancelBooking}
             onStartTrip={handleStartTrip}
             onCompleteTrip={handleCompleteTrip}
@@ -431,8 +443,10 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
               durationMin={durationMin}
             />
 
-            {/* Vehicle Selection Cards */}
+            {/* Vehicle Selection Cards with Solo vs Shared Mode */}
             <VehicleSelection
+              rideMode={rideMode}
+              onSelectRideMode={setRideMode}
               selectedCategory={selectedVehicle}
               onSelectCategory={setSelectedVehicle}
               distanceKm={distanceKm}
@@ -464,7 +478,11 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
                 transition: 'all 0.15s ease',
               }}
             >
-              <span>Confirm Ride • ₹{estimatedFare}</span>
+              <span>
+                {rideMode === 'shared'
+                  ? `Confirm Shared Ride • ₹${estimatedFare} (Save 40%)`
+                  : `Confirm Solo Ride • ₹${estimatedFare}`}
+              </span>
               <ArrowRight size={16} color={colors.freshLime} strokeWidth={2.6} />
             </button>
           </>

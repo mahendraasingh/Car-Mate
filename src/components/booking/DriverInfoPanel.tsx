@@ -8,6 +8,7 @@ interface DriverInfoPanelProps {
   driver: DriverInfo;
   estimatedFare: number;
   progressPercent: number;
+  rideMode?: 'solo' | 'shared';
   onCancelBooking: () => void;
   onStartTrip: () => void;
   onCompleteTrip: () => void;
@@ -19,6 +20,7 @@ export const DriverInfoPanel: React.FC<DriverInfoPanelProps> = ({
   driver,
   estimatedFare,
   progressPercent,
+  rideMode = 'solo',
   onCancelBooking,
   onStartTrip,
   onCompleteTrip,
@@ -181,6 +183,41 @@ export const DriverInfoPanel: React.FC<DriverInfoPanelProps> = ({
           </div>
         )}
       </div>
+
+      {/* Shared Ride Active Banner */}
+      {rideMode === 'shared' && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: '#ECFDF5',
+            border: `1.5px solid #059669`,
+            borderRadius: '12px',
+            padding: '6px 10px',
+            fontSize: '11px',
+            fontWeight: 700,
+            color: '#065F46',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>🌱</span>
+            <span>Ride Pooling: Co-rider Ananya onboard (1 seat)</span>
+          </div>
+          <span
+            style={{
+              fontSize: '9px',
+              fontWeight: 800,
+              backgroundColor: '#059669',
+              color: '#FFFFFF',
+              padding: '1px 5px',
+              borderRadius: '6px',
+            }}
+          >
+            40% SAVED
+          </span>
+        </div>
+      )}
 
       {/* Driver & Vehicle Details Card */}
       <div

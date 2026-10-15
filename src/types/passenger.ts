@@ -6,6 +6,8 @@ import type { Coordinates, MapPoint, RouteGeometry } from './map';
 
 export type VehicleCategory = 'auto' | 'small_cab' | 'compact_cab' | 'suv';
 
+export type RideMode = 'solo' | 'shared';
+
 export interface VehicleOption {
   id: VehicleCategory;
   name: string;

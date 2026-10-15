@@ -41,6 +41,7 @@ export interface MapAdapterProps {
   driverMarker?: VehicleMarkerData | null;
   route?: RouteGeometry | null;
   progressPercent?: number;
+  rideMode?: 'solo' | 'shared';
   onMarkerClick?: (markerId: string) => void;
   className?: string;
   style?: React.CSSProperties;
