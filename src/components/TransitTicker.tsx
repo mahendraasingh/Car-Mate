@@ -4,11 +4,11 @@ import { ShieldCheck, Zap, Users, MapPin, Sparkles } from 'lucide-react';
 
 export const TransitTicker: React.FC = () => {
   const tickerItems = [
-    { text: 'ZERO SURGE ON DIRECT AUTOS', icon: <Zap size={14} color={colors.deepForest} /> },
-    { text: 'SAVE UP TO 40% ON SMART POOLING', icon: <Users size={14} color={colors.deepForest} /> },
-    { text: '100% VERIFIED DRIVERS & CAPTAINS', icon: <ShieldCheck size={14} color={colors.deepForest} /> },
-    { text: 'LIVE IN DELHI NCR, BENGALURU, MUMBAI', icon: <MapPin size={14} color={colors.deepForest} /> },
-    { text: 'SHARED JOURNEYS FOR A GREENER INDIA', icon: <Sparkles size={14} color={colors.deepForest} /> },
+    { text: 'ZERO SURGE ON AUTOS', icon: <Zap size={12} color={colors.deepForest} /> },
+    { text: 'SAVE UP TO 40% ON POOLING', icon: <Users size={12} color={colors.deepForest} /> },
+    { text: '100% VERIFIED CAPTAINS', icon: <ShieldCheck size={12} color={colors.deepForest} /> },
+    { text: 'LIVE IN 8 METRO CITIES', icon: <MapPin size={12} color={colors.deepForest} /> },
+    { text: 'CLEAN AC CITY CABS', icon: <Sparkles size={12} color={colors.deepForest} /> },
   ];
 
   return (
@@ -16,36 +16,36 @@ export const TransitTicker: React.FC = () => {
       style={{
         width: '100%',
         backgroundColor: colors.freshLime,
-        borderTop: `2px solid ${colors.deepForest}`,
-        borderBottom: `2px solid ${colors.deepForest}`,
-        padding: '10px 0',
+        borderTop: `1.5px solid ${colors.deepForest}`,
+        borderBottom: `1.5px solid ${colors.deepForest}`,
+        padding: '6px 0',
         overflow: 'hidden',
         position: 'relative',
         userSelect: 'none',
+        flexShrink: 0,
       }}
       aria-label="Live Transit Highlights"
     >
       <div
         style={{
           display: 'flex',
-          gap: '32px',
+          gap: '24px',
           width: 'max-content',
-          animation: 'tickerMarquee 28s linear infinite',
+          animation: 'tickerMarquee 24s linear infinite',
         }}
       >
-        {/* Double array for seamless endless marquee */}
         {[...tickerItems, ...tickerItems, ...tickerItems].map((item, idx) => (
           <div
             key={idx}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '6px',
               fontFamily: 'var(--font-display)',
-              fontSize: '12px',
+              fontSize: '11px',
               fontWeight: 800,
               color: colors.deepForest,
-              letterSpacing: '0.6px',
+              letterSpacing: '0.4px',
             }}
           >
             {item.icon}

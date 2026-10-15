@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, shadows } from '../theme/tokens';
+import { colors } from '../theme/tokens';
 import { Sparkles } from 'lucide-react';
 
 export const MainContent: React.FC = () => {
@@ -8,55 +8,55 @@ export const MainContent: React.FC = () => {
       aria-label="Welcome Story Introduction"
       style={{
         textAlign: 'center',
-        padding: '24px 16px 12px',
-        maxWidth: '860px',
-        margin: '0 auto',
+        padding: '12px 6px 4px',
+        width: '100%',
         position: 'relative',
+        boxSizing: 'border-box',
       }}
     >
-      {/* Editorial Chapter Tag */}
+      {/* Chapter Micro-Pill */}
       <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: '6px',
           backgroundColor: colors.pureWhite,
           border: `1.5px solid ${colors.deepForest}`,
           borderRadius: '9999px',
-          padding: '6px 16px',
-          marginBottom: '16px',
-          boxShadow: shadows.doodleSticker,
+          padding: '4px 12px',
+          marginBottom: '10px',
+          boxShadow: '1px 2px 0px #172B2A',
         }}
       >
-        <Sparkles size={14} color={colors.deepForest} />
+        <Sparkles size={12} color={colors.deepForest} />
         <span
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '11px',
+            fontSize: '10px',
             fontWeight: 800,
             color: colors.deepForest,
-            letterSpacing: '0.8px',
+            letterSpacing: '0.6px',
             textTransform: 'uppercase',
           }}
         >
-          CHAPTER 01 • THE EVERYDAY COMMUTE
+          CHAPTER 01 • WELCOME TO SAFAR
         </span>
       </div>
 
-      {/* Large-Scale Editorial Headline */}
-      <h2
+      {/* Mobile Punchy Editorial Headline */}
+      <h1
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(32px, 5.5vw, 54px)',
+          fontSize: '28px',
           fontWeight: 800,
           color: colors.deepForest,
-          lineHeight: 1.1,
-          letterSpacing: '-1.2px',
-          margin: '0 auto 18px',
+          lineHeight: 1.15,
+          letterSpacing: '-0.8px',
+          margin: '0 auto 8px',
         }}
       >
         Your City.{' '}
-        <span style={{ color: colors.deepForest }}>Your Ride.</span>{' '}
+        <span>Your Ride.</span>{' '}
         <span
           style={{
             position: 'relative',
@@ -67,42 +67,42 @@ export const MainContent: React.FC = () => {
           Your Way.
           {/* Hand-drawn bold highlight brush */}
           <svg
-            viewBox="0 0 160 16"
+            viewBox="0 0 140 14"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={{
               position: 'absolute',
               bottom: '2px',
-              left: '-4%',
-              width: '108%',
-              height: '14px',
+              left: '-2%',
+              width: '104%',
+              height: '10px',
               zIndex: -1,
             }}
             aria-hidden="true"
           >
             <path
-              d="M 4 10 C 45 3, 110 3, 156 8"
+              d="M 4 8 C 45 3, 95 3, 136 7"
               stroke={colors.freshLime}
-              strokeWidth="10"
+              strokeWidth="8"
               strokeLinecap="round"
             />
           </svg>
         </span>
-      </h2>
+      </h1>
 
-      {/* Supporting Narrative Copy */}
+      {/* Supporting Mobile Narrative Copy */}
       <p
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(16px, 2.2vw, 20px)',
+          fontSize: '13px',
           fontWeight: 500,
           color: colors.mutedGrey,
-          lineHeight: 1.6,
-          maxWidth: '680px',
+          lineHeight: 1.5,
           margin: '0 auto',
+          padding: '0 8px',
         }}
       >
-        From quick auto rides to shared journeys and everyday cab trips, move through your city on your terms.
+        India's urban mobility app for instant autos, shared pooling, and clean city cabs with zero surprise surges.
       </p>
     </section>
   );

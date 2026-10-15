@@ -3,17 +3,17 @@ import { colors } from '../theme/tokens';
 import { Heart, Compass } from 'lucide-react';
 
 export const WelcomeFooter: React.FC = () => {
-  const cities = ['Delhi NCR', 'Bengaluru', 'Mumbai', 'Hyderabad', 'Pune', 'Kolkata', 'Ahmedabad', 'Chennai'];
+  const cities = ['Delhi NCR', 'Bengaluru', 'Mumbai', 'Hyderabad', 'Pune'];
 
   return (
     <footer
       style={{
         width: '100%',
-        maxWidth: '1200px',
-        margin: '32px auto 0',
-        padding: '24px 20px 32px',
+        margin: '18px auto 0',
+        padding: '16px 12px 20px',
         textAlign: 'center',
         borderTop: `1px solid ${colors.softBorder}`,
+        boxSizing: 'border-box',
       }}
       aria-label="Application Footer"
     >
@@ -24,21 +24,21 @@ export const WelcomeFooter: React.FC = () => {
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '8px',
-          marginBottom: '20px',
+          gap: '6px',
+          marginBottom: '12px',
         }}
       >
         {cities.map((city) => (
           <span
             key={city}
             style={{
-              fontSize: '11px',
+              fontSize: '10px',
               fontWeight: 700,
               color: colors.deepForest,
               backgroundColor: colors.pureWhite,
               border: `1px solid ${colors.softBorder}`,
               borderRadius: '9999px',
-              padding: '4px 12px',
+              padding: '3px 8px',
             }}
           >
             {city}
@@ -50,44 +50,34 @@ export const WelcomeFooter: React.FC = () => {
       <p
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '16px',
+          fontSize: '13px',
           fontWeight: 800,
           color: colors.deepForest,
-          letterSpacing: '0.3px',
-          margin: '0 0 6px',
+          margin: '0 0 4px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '8px',
+          gap: '6px',
         }}
       >
-        <span>Made for the way India moves.</span>
-        <Heart size={15} color={colors.doodleCoral} fill={colors.doodleCoral} />
+        <span>Made for how India moves</span>
+        <Heart size={13} color={colors.doodleCoral} fill={colors.doodleCoral} />
       </p>
 
       {/* Footnote */}
-      <p
-        style={{
-          fontSize: '12px',
-          color: colors.mutedGrey,
-          margin: '0 0 12px',
-        }}
-      >
-        SAFAR is a registered commercial urban transit platform designed for Indian metros and smart commuters.
-      </p>
-
       <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '6px',
-          fontSize: '11px',
+          gap: '5px',
+          fontSize: '10px',
           fontWeight: 700,
           color: colors.mutedGrey,
+          marginTop: '6px',
         }}
       >
-        <Compass size={13} color={colors.deepForest} />
-        <span>SAFAR MOBILITY © 2026 • ALL RIGHTS RESERVED</span>
+        <Compass size={11} color={colors.deepForest} />
+        <span>SAFAR APP v1.0 • ONBOARDING PREVIEW</span>
       </div>
     </footer>
   );

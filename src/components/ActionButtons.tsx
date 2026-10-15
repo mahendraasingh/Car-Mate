@@ -1,225 +1,239 @@
 import React, { useState } from 'react';
-import { colors, shadows, dimensions } from '../theme/tokens';
-import { ArrowRight, Info, X, Zap } from 'lucide-react';
+import { colors } from '../theme/tokens';
+import { ArrowRight, Smartphone, ShieldCheck, CheckCircle2, X } from 'lucide-react';
 
 export const ActionButtons: React.FC = () => {
-  const [feedbackInfo, setFeedbackInfo] = useState<string | null>(null);
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
 
-  const handleAction = (label: string) => {
-    setFeedbackInfo(`${label} placeholder: Authentication and live booking will open in the next release phase.`);
-    const timer = setTimeout(() => {
-      setFeedbackInfo(null);
-    }, 4000);
-    return () => clearTimeout(timer);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (phoneNumber.length >= 10) {
+      setIsOtpSent(true);
+      setStatusMessage(`OTP sent to +91 ${phoneNumber}! Welcome to SAFAR Mobile.`);
+    } else {
+      setStatusMessage('Please enter a valid 10-digit mobile number.');
+    }
+  };
+
+  const handleQuickExplore = () => {
+    setStatusMessage('Connected as Guest Commuter! Auto & Pool dispatch ready.');
   };
 
   return (
     <div
       style={{
         width: '100%',
-        maxWidth: '580px',
-        margin: '0 auto',
+        margin: '8px auto',
+        padding: '0 4px',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        gap: '14px',
-        padding: '8px 16px',
+        gap: '12px',
+        boxSizing: 'border-box',
       }}
     >
-      {/* Honest Accessible Toast Feedback */}
-      {feedbackInfo && (
+      {/* Toast Notification */}
+      {statusMessage && (
         <div
           role="status"
-          aria-live="polite"
           style={{
             width: '100%',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: '8px',
             backgroundColor: colors.pureWhite,
             border: `2px solid ${colors.deepForest}`,
-            borderRadius: '16px',
-            padding: '12px 18px',
-            fontSize: '13px',
+            borderRadius: '14px',
+            padding: '10px 12px',
+            fontSize: '11px',
             fontWeight: 700,
             color: colors.deepForest,
-            boxShadow: shadows.doodleSticker,
-            animation: 'fadeIn 0.25s ease-out forwards',
+            boxShadow: '1px 2px 0px #172B2A',
+            animation: 'fadeIn 0.2s ease-out forwards',
           }}
         >
-          <Info size={18} color={colors.deepForest} strokeWidth={2.4} />
-          <span style={{ flex: 1, lineHeight: 1.4 }}>{feedbackInfo}</span>
+          <CheckCircle2 size={16} color={colors.deepForest} />
+          <span style={{ flex: 1 }}>{statusMessage}</span>
           <button
             type="button"
-            onClick={() => setFeedbackInfo(null)}
+            onClick={() => setStatusMessage(null)}
             style={{
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               color: colors.mutedGrey,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '4px',
+              padding: '2px',
             }}
             aria-label="Dismiss notice"
           >
-            <X size={16} />
+            <X size={14} />
           </button>
         </div>
       )}
 
-      {/* Primary Action Button: GET STARTED */}
-      <button
-        id="btn-get-started"
-        type="button"
-        onClick={() => handleAction('Get Started')}
-        aria-label="Get Started with SAFAR"
+      {/* Mobile Number Fast Login Card */}
+      <form
+        onSubmit={handleSubmit}
         style={{
           width: '100%',
-          height: dimensions.primaryButtonHeight,
-          minHeight: '52px',
-          backgroundColor: colors.deepForest,
-          color: colors.pureWhite,
-          borderRadius: '18px',
-          border: `2.5px solid ${colors.deepForest}`,
-          fontSize: '17px',
+          backgroundColor: colors.pureWhite,
+          border: `2px solid ${colors.deepForest}`,
+          borderRadius: '20px',
+          padding: '14px',
+          boxShadow: '1px 3px 0px #172B2A',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <label
+            htmlFor="phone-input"
+            style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              fontFamily: 'var(--font-display)',
+              color: colors.deepForest,
+              letterSpacing: '0.4px',
+              textTransform: 'uppercase',
+            }}
+          >
+            ENTER PHONE TO START
+          </label>
+          <span
+            style={{
+              fontSize: '10px',
+              fontWeight: 700,
+              color: colors.mutedGrey,
+            }}
+          >
+            Instant OTP • 1-Tap
+          </span>
+        </div>
+
+        {/* Input Row */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: colors.warmIvory,
+            border: `1.5px solid ${colors.deepForest}`,
+            borderRadius: '14px',
+            padding: '4px 10px',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '13px',
+              fontWeight: 800,
+              color: colors.deepForest,
+              fontFamily: 'var(--font-display)',
+              borderRight: `1px solid ${colors.softBorder}`,
+              paddingRight: '8px',
+            }}
+          >
+            🇮🇳 +91
+          </span>
+          <input
+            id="phone-input"
+            type="tel"
+            maxLength={10}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+            placeholder="Enter 10-digit number"
+            style={{
+              flex: 1,
+              border: 'none',
+              background: 'transparent',
+              fontSize: '14px',
+              fontWeight: 700,
+              color: colors.deepForest,
+              fontFamily: 'var(--font-body)',
+              outline: 'none',
+              padding: '6px 0',
+            }}
+          />
+        </div>
+
+        {/* Primary Submit Button */}
+        <button
+          id="btn-get-started"
+          type="submit"
+          aria-label="Continue with Mobile Number"
+          style={{
+            width: '100%',
+            height: '46px',
+            backgroundColor: colors.deepForest,
+            color: colors.pureWhite,
+            borderRadius: '14px',
+            border: `2px solid ${colors.deepForest}`,
+            fontSize: '14px',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            boxShadow: '1px 2px 0px #172B2A',
+            transition: 'transform 0.15s ease',
+          }}
+          onMouseDown={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(2px)';
+          }}
+          onMouseUp={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
+          }}
+        >
+          <span>{isOtpSent ? 'Verify OTP & Enter' : 'Get Started with SAFAR'}</span>
+          <ArrowRight size={16} color={colors.freshLime} strokeWidth={2.6} />
+        </button>
+      </form>
+
+      {/* Guest Explore Button */}
+      <button
+        type="button"
+        onClick={handleQuickExplore}
+        style={{
+          width: '100%',
+          height: '40px',
+          backgroundColor: colors.pureWhite,
+          color: colors.deepForest,
+          borderRadius: '14px',
+          border: `1.5px solid ${colors.deepForest}`,
+          fontSize: '12px',
           fontFamily: 'var(--font-display)',
           fontWeight: 800,
-          letterSpacing: '0.4px',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '12px',
-          boxShadow: shadows.doodleStickerLg,
-          transition: 'transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease',
-        }}
-        onMouseDown={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(3px)';
-          (e.currentTarget as HTMLElement).style.boxShadow = '1px 2px 0px #172B2A';
-        }}
-        onMouseUp={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-          (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleStickerLg;
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-          (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleStickerLg;
+          gap: '6px',
+          boxShadow: '1px 1px 0px #172B2A',
         }}
       >
-        <span>Get Started — Instant Free Ride Pass</span>
-        <div
-          style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: '50%',
-            backgroundColor: colors.freshLime,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: `1.5px solid ${colors.deepForest}`,
-          }}
-          aria-hidden="true"
-        >
-          <ArrowRight size={16} color={colors.deepForest} strokeWidth={3} />
-        </div>
+        <Smartphone size={14} color={colors.deepForest} />
+        <span>Explore App as Guest Commuter</span>
       </button>
 
-      {/* Secondary Authentication Row */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '12px',
-          width: '100%',
-        }}
-      >
-        <button
-          id="btn-login"
-          type="button"
-          onClick={() => handleAction('Log In')}
-          aria-label="Log In"
-          style={{
-            height: dimensions.secondaryButtonHeight,
-            minHeight: '48px',
-            backgroundColor: colors.pureWhite,
-            color: colors.deepForest,
-            borderRadius: '16px',
-            border: `2px solid ${colors.deepForest}`,
-            fontSize: '15px',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            cursor: 'pointer',
-            boxShadow: shadows.doodleSticker,
-            transition: 'all 0.15s ease',
-          }}
-          onMouseDown={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(2px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '1px 1px 0px #172B2A';
-          }}
-          onMouseUp={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
-          }}
-        >
-          Log In
-        </button>
-
-        <button
-          id="btn-signup"
-          type="button"
-          onClick={() => handleAction('Sign Up')}
-          aria-label="Sign Up"
-          style={{
-            height: dimensions.secondaryButtonHeight,
-            minHeight: '48px',
-            backgroundColor: colors.freshLime,
-            color: colors.deepForest,
-            borderRadius: '16px',
-            border: `2px solid ${colors.deepForest}`,
-            fontSize: '15px',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            cursor: 'pointer',
-            boxShadow: shadows.doodleSticker,
-            transition: 'all 0.15s ease',
-          }}
-          onMouseDown={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(2px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '1px 1px 0px #172B2A';
-          }}
-          onMouseUp={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
-            (e.currentTarget as HTMLElement).style.boxShadow = shadows.doodleSticker;
-          }}
-        >
-          Sign Up
-        </button>
-      </div>
-
-      {/* Reassurance Micro-Copy */}
+      {/* Micro Trust Strip */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
           gap: '6px',
-          fontSize: '11px',
-          fontWeight: 600,
+          marginTop: '2px',
           color: colors.mutedGrey,
-          marginTop: '4px',
+          fontSize: '10px',
+          fontWeight: 700,
         }}
       >
-        <Zap size={12} color={colors.deepForest} />
-        <span>Takes 20 seconds • No payment required to browse</span>
+        <ShieldCheck size={12} color={colors.deepForest} />
+        <span>Govt. Approved Rates • Verified Drivers • SOS Shield</span>
       </div>
     </div>
   );

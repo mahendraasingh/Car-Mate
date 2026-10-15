@@ -47,6 +47,35 @@ html, body {
   flex-direction: column;
 }
 
+/* Mobile App Viewport custom scrollbar */
+.mobile-app-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 43, 42, 0.15) transparent;
+}
+.mobile-app-viewport::-webkit-scrollbar {
+  width: 4px;
+}
+.mobile-app-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mobile-app-viewport::-webkit-scrollbar-thumb {
+  background: rgba(23, 43, 42, 0.18);
+  border-radius: 9999px;
+}
+.mobile-app-viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(23, 43, 42, 0.4);
+}
+
+@media (max-width: 520px) {
+  .phone-outer-chassis {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {

@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { colors, shadows } from '../theme/tokens';
-import { Car, Zap, Users, Check, ShieldCheck, Clock, Leaf } from 'lucide-react';
+import { colors } from '../theme/tokens';
+import { Car, Zap, Users, Check } from 'lucide-react';
 
 interface MobilityItem {
   id: string;
   name: string;
-  category: string;
-  story: string;
-  perk: string;
+  hindiName: string;
+  tagline: string;
+  fare: string;
   badge: string;
   icon: React.ReactNode;
-  perkIcon: React.ReactNode;
   accentColor: string;
 }
 
@@ -20,35 +19,32 @@ export const MobilityCards: React.FC = () => {
   const modes: MobilityItem[] = [
     {
       id: 'auto',
-      name: 'Auto-Rickshaw',
-      category: 'GULLY MASTER',
-      story: 'Zips through city bottlenecks and narrow lanes with zero fuss.',
-      perk: 'Direct point-to-point',
+      name: 'Auto Rickshaw',
+      hindiName: 'ऑटो',
+      tagline: 'Zips through city traffic & narrow lanes',
+      fare: 'From ₹29',
       badge: 'Zero Surge',
-      icon: <Zap size={22} color={colors.deepForest} strokeWidth={2.6} />,
-      perkIcon: <Clock size={13} color={colors.deepForest} />,
+      icon: <Zap size={18} color={colors.deepForest} strokeWidth={2.8} />,
       accentColor: colors.doodleYellow,
     },
     {
       id: 'cab',
       name: 'City Cab',
-      category: 'ALL-WEATHER COMFORT',
-      story: 'Clean AC sedans & hatchbacks for airport trips and client commutes.',
-      perk: 'Spacious & chilled',
+      hindiName: 'कैब',
+      tagline: 'Clean AC sedan for airport & office commutes',
+      fare: 'From ₹69',
       badge: 'Top Rated',
-      icon: <Car size={22} color={colors.deepForest} strokeWidth={2.6} />,
-      perkIcon: <ShieldCheck size={13} color={colors.deepForest} />,
+      icon: <Car size={18} color={colors.deepForest} strokeWidth={2.8} />,
       accentColor: colors.pureWhite,
     },
     {
       id: 'pool',
       name: 'Ride Pooling',
-      category: 'SMART TOGETHER',
-      story: 'Share route & fare with verified riders heading in your direction.',
-      perk: 'Save 40% & cut CO₂',
-      badge: 'Eco Choice',
-      icon: <Users size={22} color={colors.deepForest} strokeWidth={2.6} />,
-      perkIcon: <Leaf size={13} color={colors.deepForest} />,
+      hindiName: 'शेयरिंग',
+      tagline: 'Share route with verified commuters & save 40%',
+      fare: 'From ₹45',
+      badge: 'Save 40%',
+      icon: <Users size={18} color={colors.deepForest} strokeWidth={2.8} />,
       accentColor: colors.freshLime,
     },
   ];
@@ -58,92 +54,63 @@ export const MobilityCards: React.FC = () => {
       aria-label="Mobility Modes"
       style={{
         width: '100%',
-        maxWidth: '1200px',
-        margin: '24px auto',
-        padding: '0 8px',
+        margin: '6px 0',
+        padding: '0 4px',
+        boxSizing: 'border-box',
       }}
     >
-      {/* Section Story Header */}
+      {/* Section Header */}
       <div
         style={{
           display: 'flex',
-          flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '12px',
-          marginBottom: '16px',
+          marginBottom: '10px',
           padding: '0 4px',
         }}
       >
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '13px',
+              fontSize: '11px',
               fontWeight: 800,
               color: colors.deepForest,
-              letterSpacing: '0.6px',
+              letterSpacing: '0.5px',
               textTransform: 'uppercase',
             }}
           >
-            CHOOSE HOW YOU MOVE
+            CHOOSE RIDE MODE
           </span>
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '22px',
-              fontWeight: 800,
-              color: colors.deepForest,
-              margin: '2px 0 0',
-              lineHeight: 1.2,
-            }}
-          >
-            Everyday rides. Smarter shared journeys.
-          </h3>
-        </div>
-
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            backgroundColor: colors.pureWhite,
-            border: `1.5px solid ${colors.deepForest}`,
-            borderRadius: '9999px',
-            padding: '6px 14px',
-            boxShadow: shadows.doodleSticker,
-          }}
-        >
           <span
             style={{
-              width: '8px',
-              height: '8px',
+              width: '6px',
+              height: '6px',
               borderRadius: '50%',
               backgroundColor: colors.freshLime,
-              border: `1.5px solid ${colors.deepForest}`,
+              border: `1px solid ${colors.deepForest}`,
             }}
           />
-          <span
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '12px',
-              fontWeight: 800,
-              color: colors.deepForest,
-            }}
-          >
-            TAP TO EXPLORE PERKS
-          </span>
         </div>
+        <span
+          style={{
+            fontSize: '10px',
+            fontWeight: 700,
+            color: colors.mutedGrey,
+          }}
+        >
+          Tap to preview fare
+        </span>
       </div>
 
-      {/* 3 Story-Driven Feature Cards */}
+      {/* Vertical Mobile App Card Stack */}
       <div
         role="radiogroup"
         aria-label="Select Mobility Service"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '18px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
           width: '100%',
         }}
       >
@@ -157,128 +124,121 @@ export const MobilityCards: React.FC = () => {
               aria-checked={isSelected}
               onClick={() => setSelectedMode(item.id)}
               style={{
-                backgroundColor: colors.pureWhite,
+                backgroundColor: isSelected ? '#FAF8F3' : colors.pureWhite,
                 border: isSelected
-                  ? `2.5px solid ${colors.deepForest}`
+                  ? `2px solid ${colors.deepForest}`
                   : `1.5px solid ${colors.softBorder}`,
-                borderRadius: '24px',
-                padding: '22px 20px',
+                borderRadius: '18px',
+                padding: '12px 14px',
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                textAlign: 'left',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
                 cursor: 'pointer',
+                textAlign: 'left',
                 position: 'relative',
-                boxShadow: isSelected ? shadows.doodleStickerLg : shadows.card,
-                transform: isSelected ? 'translateY(-4px)' : 'none',
-                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: isSelected ? '1px 3px 0px #172B2A' : 'none',
+                transform: isSelected ? 'translateY(-2px)' : 'none',
+                transition: 'all 0.18s ease',
               }}
             >
-              {/* Category & Badge Row */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  marginBottom: '14px',
-                }}
-              >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
+                {/* Mode Icon */}
                 <div
                   style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '14px',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '12px',
                     backgroundColor: item.accentColor,
                     border: `1.5px solid ${colors.deepForest}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '1px 2px 0px #172B2A',
+                    boxShadow: '1px 1px 0px #172B2A',
+                    flexShrink: 0,
                   }}
                   aria-hidden="true"
                 >
                   {item.icon}
                 </div>
 
-                <div
-                  style={{
-                    backgroundColor: item.accentColor,
-                    color: colors.deepForest,
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 800,
-                    padding: '4px 10px',
-                    borderRadius: '9999px',
-                    border: `1.5px solid ${colors.deepForest}`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}
-                >
-                  {isSelected && <Check size={12} strokeWidth={3} />}
-                  <span>{item.badge}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '14px',
+                        fontWeight: 800,
+                        color: colors.deepForest,
+                      }}
+                    >
+                      {item.name}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        color: colors.mutedGrey,
+                      }}
+                    >
+                      {item.hindiName}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '9px',
+                        fontWeight: 800,
+                        padding: '1px 6px',
+                        borderRadius: '6px',
+                        backgroundColor: item.id === 'pool' ? colors.freshLime : colors.warmIvory,
+                        color: colors.deepForest,
+                        border: `1px solid ${colors.deepForest}`,
+                      }}
+                    >
+                      {item.badge}
+                    </span>
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: '11px',
+                      color: colors.mutedGrey,
+                      margin: 0,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {item.tagline}
+                  </p>
                 </div>
               </div>
 
-              {/* Title & Category Label */}
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  letterSpacing: '0.8px',
-                  color: colors.mutedGrey,
-                  textTransform: 'uppercase',
-                }}
-              >
-                {item.category}
-              </span>
-
-              <h4
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '20px',
-                  fontWeight: 800,
-                  color: colors.deepForest,
-                  margin: '4px 0 8px',
-                  lineHeight: 1.2,
-                }}
-              >
-                {item.name}
-              </h4>
-
-              {/* Story Narrative */}
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
-                  color: colors.mutedGrey,
-                  lineHeight: 1.5,
-                  margin: '0 0 16px',
-                  flex: 1,
-                }}
-              >
-                {item.story}
-              </p>
-
-              {/* Perk Pill */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: colors.warmIvory,
-                  border: `1px solid ${colors.softBorder}`,
-                  padding: '6px 12px',
-                  borderRadius: '10px',
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  color: colors.deepForest,
-                  width: '100%',
-                }}
-              >
-                {item.perkIcon}
-                <span>{item.perk}</span>
+              {/* Fare & Radio Check */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '13px',
+                    fontWeight: 800,
+                    color: colors.deepForest,
+                  }}
+                >
+                  {item.fare}
+                </span>
+                <div
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    borderRadius: '50%',
+                    border: `1.5px solid ${colors.deepForest}`,
+                    backgroundColor: isSelected ? colors.deepForest : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {isSelected && <Check size={12} color={colors.freshLime} strokeWidth={3} />}
+                </div>
               </div>
             </button>
           );

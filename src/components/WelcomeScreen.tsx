@@ -14,54 +14,52 @@ export const WelcomeScreen: React.FC = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        minHeight: '100%',
         width: '100%',
         backgroundColor: colors.warmIvory,
         position: 'relative',
         boxSizing: 'border-box',
       }}
     >
-      {/* Expansive Sticky Brand Header */}
+      {/* Mobile App Header with City Selector */}
       <BrandHeader />
 
-      {/* Live Urban Transit Ticker Marquee */}
+      {/* Live Urban Transit Ticker */}
       <TransitTicker />
 
-      {/* Front-Loading Storytelling Main View */}
+      {/* Front-Loading Mobile App Screen Content */}
       <main
         style={{
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '28px 20px 40px',
+          padding: '14px 12px 20px',
           boxSizing: 'border-box',
-          gap: '24px',
+          gap: '14px',
         }}
       >
-        {/* Front-Loading Panoramic Mixed-Media Hero Scene */}
+        {/* Mobile Mixed-Media Hero Scene */}
         <section aria-label="Urban Mobility Scene" className="animate-entrance delay-1" style={{ width: '100%' }}>
           <HeroVisual />
         </section>
 
-        {/* Large-Scale Narrative Headline & Copy */}
+        {/* Narrative Headline & Micro-Copy */}
         <section aria-label="Brand Narrative" className="animate-entrance delay-2" style={{ width: '100%' }}>
           <MainContent />
         </section>
 
-        {/* Interactive Mobility Category Cards */}
+        {/* Interactive Mobility Category Selector */}
         <section aria-label="Mobility Modes" className="animate-entrance delay-3" style={{ width: '100%' }}>
           <MobilityCards />
         </section>
 
-        {/* Action Button Cluster */}
-        <section aria-label="Start Your Journey" className="animate-entrance delay-4" style={{ width: '100%', margin: '16px auto 8px' }}>
+        {/* Action Button & Fast Login */}
+        <section aria-label="Start Your Journey" className="animate-entrance delay-4" style={{ width: '100%' }}>
           <ActionButtons />
         </section>
 
-        {/* Expansive Footer & City Transit Badges */}
+        {/* Mobile Footer & City Coverage */}
         <div className="animate-entrance delay-5" style={{ width: '100%' }}>
           <WelcomeFooter />
         </div>
