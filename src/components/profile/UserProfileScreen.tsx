@@ -636,7 +636,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ onBack }) 
                 Eco Smart Pooling Opt-In
               </div>
               <div style={{ fontSize: '10px', color: colors.mutedGrey }}>
-                Automatically check co-riders along route to save 40% fare
+                Automatically check co-riders along route for shared trips
               </div>
             </div>
 

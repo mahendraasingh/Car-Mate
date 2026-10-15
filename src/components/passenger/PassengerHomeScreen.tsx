@@ -480,7 +480,7 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
             >
               <span>
                 {rideMode === 'shared'
-                  ? `Confirm Shared Ride • ₹${estimatedFare} (Save 40%)`
+                  ? `Confirm Shared Ride • ₹${estimatedFare}`
                   : `Confirm Solo Ride • ₹${estimatedFare}`}
               </span>
               <ArrowRight size={16} color={colors.freshLime} strokeWidth={2.6} />

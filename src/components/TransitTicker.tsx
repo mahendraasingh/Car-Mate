@@ -5,7 +5,7 @@ import { ShieldCheck, Zap, Users, MapPin, Sparkles } from 'lucide-react';
 export const TransitTicker: React.FC = () => {
   const tickerItems = [
     { text: 'ZERO SURGE ON AUTOS', icon: <Zap size={12} color={colors.deepForest} /> },
-    { text: 'SAVE UP TO 40% ON POOLING', icon: <Users size={12} color={colors.deepForest} /> },
+    { text: 'SMART RIDE POOLING ACTIVE', icon: <Users size={12} color={colors.deepForest} /> },
     { text: '100% VERIFIED CAPTAINS', icon: <ShieldCheck size={12} color={colors.deepForest} /> },
     { text: 'LIVE IN 8 METRO CITIES', icon: <MapPin size={12} color={colors.deepForest} /> },
     { text: 'CLEAN AC CITY CABS', icon: <Sparkles size={12} color={colors.deepForest} /> },

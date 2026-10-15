@@ -214,7 +214,7 @@ export const DriverInfoPanel: React.FC<DriverInfoPanelProps> = ({
               borderRadius: '6px',
             }}
           >
-            40% SAVED
+            SHARED POOL
           </span>
         </div>
       )}

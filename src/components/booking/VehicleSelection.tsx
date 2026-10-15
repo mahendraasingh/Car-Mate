@@ -23,6 +23,8 @@ interface DynamicTierConfig {
   sharedCapacity: string;
   baseFare: number;
   perKmRate: number;
+  sharedBaseFare: number;
+  sharedPerKmRate: number;
   arrivalMin: number;
   accentColor: string;
   soloBadge: string;
@@ -37,15 +39,17 @@ const VEHICLE_CONFIGS: DynamicTierConfig[] = [
     soloTitle: 'SOLO AUTO',
     sharedTitle: 'SHARED AUTO',
     soloDesc: 'Direct point-to-point rickshaw for quick city hops with zero surge.',
-    sharedDesc: 'Share route seat with 1 co-rider along the way • Save 40% fare.',
+    sharedDesc: 'Share route seat with a co-rider along the way when available.',
     soloCapacity: '3 seats',
     sharedCapacity: '1-2 seats',
     baseFare: 29,
     perKmRate: 11,
+    sharedBaseFare: 22,
+    sharedPerKmRate: 8,
     arrivalMin: 2,
     accentColor: colors.doodleYellow,
     soloBadge: 'Zero Surge',
-    sharedBadge: 'Save 40%',
+    sharedBadge: 'Shared Auto',
   },
   {
     id: 'small_cab',
@@ -54,15 +58,17 @@ const VEHICLE_CONFIGS: DynamicTierConfig[] = [
     soloTitle: 'SOLO HATCHBACK',
     sharedTitle: 'POOL HATCHBACK',
     soloDesc: 'Private budget hatchback with chilled AC for affordable solo commutes.',
-    sharedDesc: 'Pool with 1 verified commuter heading in the same direction.',
+    sharedDesc: 'Pool with a verified commuter heading in the same direction.',
     soloCapacity: '4 seats',
     sharedCapacity: '1-2 seats',
     baseFare: 49,
     perKmRate: 14,
+    sharedBaseFare: 36,
+    sharedPerKmRate: 10,
     arrivalMin: 4,
     accentColor: '#E2F0D9',
     soloBadge: 'Value Pick',
-    sharedBadge: 'Save 40%',
+    sharedBadge: 'Carpool',
   },
   {
     id: 'compact_cab',
@@ -76,10 +82,12 @@ const VEHICLE_CONFIGS: DynamicTierConfig[] = [
     sharedCapacity: '1-2 seats',
     baseFare: 69,
     perKmRate: 17,
+    sharedBaseFare: 52,
+    sharedPerKmRate: 12,
     arrivalMin: 3,
     accentColor: colors.pureWhite,
     soloBadge: 'Top Rated',
-    sharedBadge: 'Eco Prime',
+    sharedBadge: 'Eco Sedan',
   },
   {
     id: 'suv',
@@ -88,15 +96,17 @@ const VEHICLE_CONFIGS: DynamicTierConfig[] = [
     soloTitle: 'SOLO SUV',
     sharedTitle: 'SHARED SUV',
     soloDesc: 'Private spacious 6-seater with huge boot space for family & luggage.',
-    sharedDesc: 'Group ride-pooling with extra legroom and personal space.',
+    sharedDesc: 'Group ride-pooling with extra legroom and dedicated co-rider seats.',
     soloCapacity: '6 seats',
     sharedCapacity: '1-3 seats',
     baseFare: 99,
     perKmRate: 23,
+    sharedBaseFare: 74,
+    sharedPerKmRate: 16,
     arrivalMin: 6,
     accentColor: colors.freshLime,
     soloBadge: 'Extra Room',
-    sharedBadge: 'Max Comfort',
+    sharedBadge: 'Group Pool',
   },
 ];
 
@@ -212,11 +222,11 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                   borderRadius: '4px',
                 }}
               >
-                40% OFF
+                POOL
               </span>
             </div>
             <div style={{ fontSize: '9px', fontWeight: 700, color: colors.deepForest }}>
-              Pooling • Eco Save
+              Co-rider Sharing
             </div>
           </div>
         </button>
@@ -247,7 +257,7 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
               textTransform: 'uppercase',
             }}
           >
-            {rideMode === 'shared' ? 'POOLING TIERS (40% DISCOUNTED)' : 'SOLO TIERS (DIRECT DISPATCH)'}
+            {rideMode === 'shared' ? 'SHARED RIDE TIERS (CO-RIDER POOLING)' : 'SOLO TIERS (DIRECT DISPATCH)'}
           </span>
         </div>
         <span
@@ -272,10 +282,10 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
       >
         {VEHICLE_CONFIGS.map((option) => {
           const isSelected = selectedCategory === option.id;
-          // Calculate standard solo fare: baseFare + (distance * perKmRate)
-          const standardFare = Math.round(option.baseFare + distanceKm * option.perKmRate);
-          // When shared, apply 40% discount (~60% of original fare)
-          const finalFare = rideMode === 'shared' ? Math.round(standardFare * 0.6) : standardFare;
+          // Calculate fare based on mode
+          const fare = rideMode === 'shared'
+            ? Math.round(option.sharedBaseFare + distanceKm * option.sharedPerKmRate)
+            : Math.round(option.baseFare + distanceKm * option.perKmRate);
 
           return (
             <button
@@ -438,30 +448,22 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                 }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                  {rideMode === 'shared' && (
-                    <span
-                      style={{
-                        fontSize: '10px',
-                        color: colors.mutedGrey,
-                        textDecoration: 'line-through',
-                        fontWeight: 600,
-                        lineHeight: 1,
-                      }}
-                    >
-                      ₹{standardFare}
-                    </span>
-                  )}
                   <span
                     style={{
                       fontFamily: 'var(--font-display)',
                       fontSize: '14px',
                       fontWeight: 800,
-                      color: rideMode === 'shared' ? '#166534' : colors.deepForest,
+                      color: colors.deepForest,
                       lineHeight: 1.1,
                     }}
                   >
-                    ₹{finalFare}
+                    ₹{fare}
                   </span>
+                  {rideMode === 'shared' && (
+                    <span style={{ fontSize: '9px', fontWeight: 700, color: '#166534' }}>
+                      Shared Tier
+                    </span>
+                  )}
                 </div>
 
                 <div
@@ -498,8 +500,8 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
         <Sparkles size={11} color={colors.deepForest} />
         <span>
           {rideMode === 'shared'
-            ? 'Shared pooling matches you with verified commuters along your path.'
-            : 'Solo ride guarantees non-stop private point-to-point journey with zero detour.'}
+            ? 'Shared pooling matches you with verified commuters along your path when available.'
+            : 'Solo ride guarantees private point-to-point journey with zero detour.'}
         </span>
       </div>
     </div>

@@ -214,7 +214,7 @@ export const HeroVisual: React.FC = () => {
               color: colors.deepForest,
             }}
           >
-            Ride Pooling • Cut Fares by 40%
+            Ride Pooling • Smart Shared Commute
           </span>
         </div>
       </div>
