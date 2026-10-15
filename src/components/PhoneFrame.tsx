@@ -4,9 +4,11 @@ import { Wifi, Battery, Signal, Smartphone, Maximize2, Moon, Sun, Sparkles } fro
 
 interface PhoneFrameProps {
   children: React.ReactNode;
+  activeScreen?: 'welcome' | 'passenger_home' | 'profile';
+  onSelectScreen?: (screen: 'welcome' | 'passenger_home' | 'profile') => void;
 }
 
-export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
+export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, onSelectScreen }) => {
   const [currentTime, setCurrentTime] = useState<string>('9:41');
   const [isDarkModeStudio, setIsDarkModeStudio] = useState<boolean>(true);
   const [zoomLevel, setZoomLevel] = useState<'fit' | '100%'>('fit');
@@ -125,10 +127,75 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
                 color: isDarkModeStudio ? '#9AA3A0' : colors.mutedGrey,
               }}
             >
-              First Launch & Welcome Screen
+              {activeScreen === 'welcome' && 'Welcome & Onboarding'}
+              {activeScreen === 'passenger_home' && 'Live Booking & Radar'}
+              {activeScreen === 'profile' && 'User Profile & Places'}
             </span>
           </div>
         </div>
+
+        {/* Screen Switcher Pills */}
+        {onSelectScreen && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              backgroundColor: isDarkModeStudio ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.06)',
+              padding: '3px',
+              borderRadius: '12px',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => onSelectScreen('welcome')}
+              style={{
+                padding: '4px 8px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeScreen === 'welcome' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'welcome' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                fontSize: '10px',
+                fontWeight: 800,
+                cursor: 'pointer',
+              }}
+            >
+              Welcome
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectScreen('passenger_home')}
+              style={{
+                padding: '4px 8px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeScreen === 'passenger_home' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'passenger_home' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                fontSize: '10px',
+                fontWeight: 800,
+                cursor: 'pointer',
+              }}
+            >
+              Ride
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectScreen('profile')}
+              style={{
+                padding: '4px 8px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeScreen === 'profile' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'profile' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                fontSize: '10px',
+                fontWeight: 800,
+                cursor: 'pointer',
+              }}
+            >
+              Profile
+            </button>
+          </div>
+        )}
 
         {/* Studio Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

@@ -8,7 +8,11 @@ import { MobilityCards } from './MobilityCards';
 import { ActionButtons } from './ActionButtons';
 import { WelcomeFooter } from './WelcomeFooter';
 
-export const WelcomeScreen: React.FC = () => {
+interface WelcomeScreenProps {
+  onEnterPassengerApp?: () => void;
+}
+
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnterPassengerApp }) => {
   return (
     <div
       style={{
@@ -56,7 +60,7 @@ export const WelcomeScreen: React.FC = () => {
 
         {/* Action Button & Fast Login */}
         <section aria-label="Start Your Journey" className="animate-entrance delay-4" style={{ width: '100%' }}>
-          <ActionButtons />
+          <ActionButtons onEnterApp={onEnterPassengerApp} />
         </section>
 
         {/* Mobile Footer & City Coverage */}

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { colors } from '../theme/tokens';
 import { ArrowRight, Smartphone, ShieldCheck, CheckCircle2, X } from 'lucide-react';
 
-export const ActionButtons: React.FC = () => {
+interface ActionButtonsProps {
+  onEnterApp?: () => void;
+}
+
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ onEnterApp }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
@@ -10,15 +14,25 @@ export const ActionButtons: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (phoneNumber.length >= 10) {
-      setIsOtpSent(true);
-      setStatusMessage(`OTP sent to +91 ${phoneNumber}! Welcome to SAFAR Mobile.`);
+      if (!isOtpSent) {
+        setIsOtpSent(true);
+        setStatusMessage(`OTP 4821 sent to +91 ${phoneNumber}! Click below to enter.`);
+      } else {
+        if (onEnterApp) {
+          onEnterApp();
+        }
+      }
     } else {
       setStatusMessage('Please enter a valid 10-digit mobile number.');
     }
   };
 
   const handleQuickExplore = () => {
-    setStatusMessage('Connected as Guest Commuter! Auto & Pool dispatch ready.');
+    if (onEnterApp) {
+      onEnterApp();
+    } else {
+      setStatusMessage('Connected as Guest Commuter! Auto & Pool dispatch ready.');
+    }
   };
 
   return (
@@ -188,7 +202,7 @@ export const ActionButtons: React.FC = () => {
             (e.currentTarget as HTMLElement).style.transform = 'translateY(0px)';
           }}
         >
-          <span>{isOtpSent ? 'Verify OTP & Enter' : 'Get Started with SAFAR'}</span>
+          <span>{isOtpSent ? 'Verify OTP & Enter App' : 'Get Started with SAFAR'}</span>
           <ArrowRight size={16} color={colors.freshLime} strokeWidth={2.6} />
         </button>
       </form>
@@ -199,7 +213,7 @@ export const ActionButtons: React.FC = () => {
         onClick={handleQuickExplore}
         style={{
           width: '100%',
-          height: '40px',
+          height: '42px',
           backgroundColor: colors.pureWhite,
           color: colors.deepForest,
           borderRadius: '14px',
@@ -216,7 +230,7 @@ export const ActionButtons: React.FC = () => {
         }}
       >
         <Smartphone size={14} color={colors.deepForest} />
-        <span>Explore App as Guest Commuter</span>
+        <span>Open Passenger Booking App</span>
       </button>
 
       {/* Micro Trust Strip */}
