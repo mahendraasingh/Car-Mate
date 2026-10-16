@@ -4,8 +4,24 @@ import { Wifi, Battery, Signal, Smartphone, Maximize2, Moon, Sun, Sparkles } fro
 
 interface PhoneFrameProps {
   children: React.ReactNode;
-  activeScreen?: 'welcome' | 'passenger_home' | 'profile';
-  onSelectScreen?: (screen: 'welcome' | 'passenger_home' | 'profile') => void;
+  activeScreen?:
+    | 'welcome'
+    | 'passenger_home'
+    | 'profile'
+    | 'driver_home'
+    | 'driver_earnings'
+    | 'driver_history'
+    | 'driver_profile';
+  onSelectScreen?: (
+    screen:
+      | 'welcome'
+      | 'passenger_home'
+      | 'profile'
+      | 'driver_home'
+      | 'driver_earnings'
+      | 'driver_history'
+      | 'driver_profile'
+  ) => void;
 }
 
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, onSelectScreen }) => {
@@ -69,7 +85,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, 
           alignItems: 'center',
           justifyContent: 'space-between',
           width: '100%',
-          maxWidth: '520px',
+          maxWidth: '560px',
           marginBottom: '18px',
           padding: '10px 18px',
           borderRadius: '9999px',
@@ -117,7 +133,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, 
                   color: colors.deepForest,
                 }}
               >
-                MOBILE PREVIEW
+                {activeScreen?.startsWith('driver') ? 'DRIVER PARTNER' : 'PASSENGER'}
               </span>
             </div>
             <span
@@ -130,6 +146,10 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, 
               {activeScreen === 'welcome' && 'Welcome & Onboarding'}
               {activeScreen === 'passenger_home' && 'Live Booking & Radar'}
               {activeScreen === 'profile' && 'User Profile & Places'}
+              {activeScreen === 'driver_home' && 'Driver Cockpit & Live Radar'}
+              {activeScreen === 'driver_earnings' && 'Driver Earnings & Statements'}
+              {activeScreen === 'driver_history' && 'Commercial Trip History Log'}
+              {activeScreen === 'driver_profile' && 'Fleet Partner & Vehicle Specs'}
             </span>
           </div>
         </div>
@@ -148,51 +168,67 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children, activeScreen, 
           >
             <button
               type="button"
-              onClick={() => onSelectScreen('welcome')}
-              style={{
-                padding: '4px 8px',
-                borderRadius: '8px',
-                border: 'none',
-                backgroundColor: activeScreen === 'welcome' ? colors.freshLime : 'transparent',
-                color: activeScreen === 'welcome' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
-                fontSize: '10px',
-                fontWeight: 800,
-                cursor: 'pointer',
-              }}
-            >
-              Welcome
-            </button>
-            <button
-              type="button"
               onClick={() => onSelectScreen('passenger_home')}
               style={{
                 padding: '4px 8px',
                 borderRadius: '8px',
                 border: 'none',
-                backgroundColor: activeScreen === 'passenger_home' ? colors.freshLime : 'transparent',
-                color: activeScreen === 'passenger_home' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                backgroundColor: activeScreen === 'passenger_home' || activeScreen === 'welcome' || activeScreen === 'profile' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'passenger_home' || activeScreen === 'welcome' || activeScreen === 'profile' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
                 fontSize: '10px',
                 fontWeight: 800,
                 cursor: 'pointer',
               }}
             >
-              Ride
+              Rider
             </button>
             <button
               type="button"
-              onClick={() => onSelectScreen('profile')}
+              onClick={() => onSelectScreen('driver_home')}
               style={{
                 padding: '4px 8px',
                 borderRadius: '8px',
                 border: 'none',
-                backgroundColor: activeScreen === 'profile' ? colors.freshLime : 'transparent',
-                color: activeScreen === 'profile' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                backgroundColor: activeScreen === 'driver_home' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'driver_home' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
                 fontSize: '10px',
                 fontWeight: 800,
                 cursor: 'pointer',
               }}
             >
-              Profile
+              Driver
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectScreen('driver_earnings')}
+              style={{
+                padding: '4px 8px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeScreen === 'driver_earnings' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'driver_earnings' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                fontSize: '10px',
+                fontWeight: 800,
+                cursor: 'pointer',
+              }}
+            >
+              Earnings
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectScreen('driver_profile')}
+              style={{
+                padding: '4px 8px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: activeScreen === 'driver_profile' ? colors.freshLime : 'transparent',
+                color: activeScreen === 'driver_profile' ? colors.deepForest : (isDarkModeStudio ? '#C5CCC9' : colors.deepForest),
+                fontSize: '10px',
+                fontWeight: 800,
+                cursor: 'pointer',
+              }}
+            >
+              Vehicle
             </button>
           </div>
         )}
