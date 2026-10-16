@@ -441,7 +441,73 @@ export const DriverHomeScreen: React.FC<DriverHomeScreenProps> = ({
               <span>Simulate</span>
             </button>
           </div>
-        ) : null}
+        ) : (
+          /* Offline Commercial Rest Card with Reference Asset */
+          <div
+            style={{
+              padding: '12px 14px',
+              borderRadius: '20px',
+              backgroundColor: colors.pureWhite,
+              border: `2px solid ${colors.deepForest}`,
+              boxShadow: shadows.subtle,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Visual Photo Thumbnail from Reference Assets */}
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '14px',
+                border: `1.5px solid ${colors.deepForest}`,
+                overflow: 'hidden',
+                flexShrink: 0,
+                position: 'relative',
+              }}
+            >
+              <img
+                src="/img/596eb85f33be87a4c2d136d8ec95b42e.jpg"
+                alt="City transit backdrop"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    padding: '1px 6px',
+                    borderRadius: '4px',
+                    backgroundColor: '#EBE7DD',
+                    color: colors.deepForest,
+                  }}
+                >
+                  OFFLINE REST
+                </span>
+                <span style={{ fontSize: '10px', fontWeight: 700, color: colors.mutedGrey }}>
+                  Peak surge coming up
+                </span>
+              </div>
+              <p
+                style={{
+                  margin: '4px 0 0',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: colors.deepForest,
+                  lineHeight: 1.25,
+                }}
+              >
+                Switch online to start accepting commuter rides in {profile.city}.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Driver Stat Cards (Today's Earnings, Trips, Vehicle Snapshot) */}
         <DriverStatCards
