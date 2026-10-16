@@ -9,16 +9,18 @@ import { SimulatedMap } from '../map/SimulatedMap';
 import { LocationInputCard } from '../booking/LocationInputCard';
 import { VehicleSelection, VEHICLE_OPTIONS } from '../booking/VehicleSelection';
 import { DriverInfoPanel } from '../booking/DriverInfoPanel';
-import { Compass, ArrowRight, Radar } from 'lucide-react';
+import { Compass, ArrowRight, Radar, Car } from 'lucide-react';
 
 interface PassengerHomeScreenProps {
   onOpenProfile: () => void;
   onBackToWelcome: () => void;
+  onSwitchToDriver?: () => void;
 }
 
 export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
   onOpenProfile,
   onBackToWelcome,
+  onSwitchToDriver,
 }) => {
   // Location States
   const [pickup, setPickup] = useState<MapPoint | null>(DEMO_PRESET_LOCATIONS[0]);
@@ -274,44 +276,72 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
           </div>
         </div>
 
-        {/* Profile Avatar Navigation Button */}
-        <button
-          type="button"
-          onClick={onOpenProfile}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            backgroundColor: colors.pureWhite,
-            border: `1.5px solid ${colors.deepForest}`,
-            borderRadius: '9999px',
-            padding: '4px 10px',
-            cursor: 'pointer',
-            boxShadow: '1px 1px 0px #172B2A',
-          }}
-          aria-label="Open Passenger Profile"
-        >
-          <div
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {onSwitchToDriver && (
+            <button
+              type="button"
+              onClick={onSwitchToDriver}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+                backgroundColor: colors.freshLime,
+                border: `1.5px solid ${colors.deepForest}`,
+                borderRadius: '9999px',
+                padding: '4px 9px',
+                cursor: 'pointer',
+                boxShadow: '1px 1px 0px #172B2A',
+                color: colors.deepForest,
+                fontSize: '11px',
+                fontWeight: 800,
+              }}
+              title="Switch to Driver Partner Mode"
+              aria-label="Switch to Driver Partner Mode"
+            >
+              <Car size={12} strokeWidth={2.4} />
+              <span>Driver</span>
+            </button>
+          )}
+
+          {/* Profile Avatar Navigation Button */}
+          <button
+            type="button"
+            onClick={onOpenProfile}
             style={{
-              width: '22px',
-              height: '22px',
-              borderRadius: '50%',
-              backgroundColor: colors.freshLime,
-              border: `1px solid ${colors.deepForest}`,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '11px',
-              fontWeight: 800,
-              color: colors.deepForest,
+              gap: '6px',
+              backgroundColor: colors.pureWhite,
+              border: `1.5px solid ${colors.deepForest}`,
+              borderRadius: '9999px',
+              padding: '4px 10px',
+              cursor: 'pointer',
+              boxShadow: '1px 1px 0px #172B2A',
             }}
+            aria-label="Open Passenger Profile"
           >
-            {profile.fullName.charAt(0)}
-          </div>
-          <span style={{ fontSize: '11px', fontWeight: 800, color: colors.deepForest, fontFamily: 'var(--font-display)' }}>
-            Profile
-          </span>
-        </button>
+            <div
+              style={{
+                width: '22px',
+                height: '22px',
+                borderRadius: '50%',
+                backgroundColor: colors.freshLime,
+                border: `1px solid ${colors.deepForest}`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '11px',
+                fontWeight: 800,
+                color: colors.deepForest,
+              }}
+            >
+              {profile.fullName.charAt(0)}
+            </div>
+            <span style={{ fontSize: '11px', fontWeight: 800, color: colors.deepForest, fontFamily: 'var(--font-display)' }}>
+              Profile
+            </span>
+          </button>
+        </div>
       </header>
 
       {/* Main Content Area */}

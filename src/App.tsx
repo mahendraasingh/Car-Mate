@@ -43,6 +43,7 @@ export const App: React.FC = () => {
         <PassengerHomeScreen
           onOpenProfile={() => setCurrentScreen('profile')}
           onBackToWelcome={() => setCurrentScreen('welcome')}
+          onSwitchToDriver={() => setCurrentScreen('driver_home')}
         />
       )}
 
