@@ -510,7 +510,7 @@ export const PassengerHomeScreen: React.FC<PassengerHomeScreenProps> = ({
             >
               <span>
                 {rideMode === 'shared'
-                  ? `Confirm Shared Ride • ₹${estimatedFare}`
+                  ? 'Confirm Shared Ride • Fare on Match'
                   : `Confirm Solo Ride • ₹${estimatedFare}`}
               </span>
               <ArrowRight size={16} color={colors.freshLime} strokeWidth={2.6} />

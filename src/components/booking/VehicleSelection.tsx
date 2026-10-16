@@ -447,24 +447,59 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
                   marginLeft: '8px',
                 }}
               >
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '14px',
-                      fontWeight: 800,
-                      color: colors.deepForest,
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    ₹{fare}
-                  </span>
-                  {rideMode === 'shared' && (
-                    <span style={{ fontSize: '9px', fontWeight: 700, color: '#166534' }}>
-                      Shared Tier
+                {rideMode === 'shared' ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '11px',
+                        fontWeight: 800,
+                        color: colors.deepForest,
+                        backgroundColor: colors.freshLime,
+                        padding: '2px 7px',
+                        borderRadius: '6px',
+                        border: `1px solid ${colors.deepForest}`,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      Fare on Match
                     </span>
-                  )}
-                </div>
+                    <span
+                      style={{
+                        fontSize: '9px',
+                        color: colors.mutedGrey,
+                        fontWeight: 700,
+                        marginTop: '2px',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      Dynamic Pooling
+                    </span>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '14px',
+                        fontWeight: 800,
+                        color: colors.deepForest,
+                        lineHeight: 1.1,
+                      }}
+                    >
+                      ₹{fare}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '9px',
+                        color: colors.mutedGrey,
+                        fontWeight: 600,
+                      }}
+                    >
+                      direct fare
+                    </span>
+                  </div>
+                )}
 
                 <div
                   style={{
@@ -500,7 +535,7 @@ export const VehicleSelection: React.FC<VehicleSelectionProps> = ({
         <Sparkles size={11} color={colors.deepForest} />
         <span>
           {rideMode === 'shared'
-            ? 'Shared pooling matches you with verified commuters along your path when available.'
+            ? 'Shared pooling fare is variable and calculated dynamically once a co-rider match is confirmed.'
             : 'Solo ride guarantees private point-to-point journey with zero detour.'}
         </span>
       </div>
