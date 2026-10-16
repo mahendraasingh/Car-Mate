@@ -28,6 +28,18 @@ export const colors = {
   forestAlpha20: 'rgba(23, 43, 42, 0.20)',
   forestAlpha80: 'rgba(23, 43, 42, 0.85)',
   surfaceHighlight: '#FAF8F3',
+
+  // Driver Commercial Experience Tokens
+  driverOnline: '#10B981',       // High-visibility online emerald
+  driverOnlineBg: '#E6F8F0',     // Soft emerald pill
+  driverOffline: '#64748B',      // Crisp slate offline
+  driverOfflineBg: '#F1F5F9',    // Soft slate container
+  driverBusy: '#F59E0B',         // In-trip active amber
+  driverBusyBg: '#FEF3C7',       // Soft amber pill
+  driverEarningsGold: '#D97706', // Currency accent
+  driverDarkHud: '#0F1E1D',      // Tactile night-mode driver cockpit surface
+  driverHudSurface: '#193432',   // Secondary dark card
+  driverGlowGreen: '0 0 16px rgba(16, 185, 129, 0.35)',
 } as const;
 
 export const typography = {
