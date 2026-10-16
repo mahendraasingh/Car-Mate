@@ -36,7 +36,10 @@ export const App: React.FC = () => {
     >
       {/* Passenger Experience Screens */}
       {currentScreen === 'welcome' && (
-        <WelcomeScreen onEnterPassengerApp={() => setCurrentScreen('passenger_home')} />
+        <WelcomeScreen
+          onEnterPassengerApp={() => setCurrentScreen('passenger_home')}
+          onEnterDriverApp={() => setCurrentScreen('driver_home')}
+        />
       )}
 
       {currentScreen === 'passenger_home' && (

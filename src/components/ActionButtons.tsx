@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { colors } from '../theme/tokens';
-import { ArrowRight, Smartphone, ShieldCheck, CheckCircle2, X } from 'lucide-react';
+import { ArrowRight, Smartphone, ShieldCheck, CheckCircle2, X, Car } from 'lucide-react';
 
 interface ActionButtonsProps {
   onEnterApp?: () => void;
+  onEnterDriverApp?: () => void;
 }
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({ onEnterApp }) => {
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ onEnterApp, onEnterDriverApp }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
@@ -232,6 +233,34 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ onEnterApp }) => {
         <Smartphone size={14} color={colors.deepForest} />
         <span>Open Passenger Booking App</span>
       </button>
+
+      {/* Driver Partner Entry Button */}
+      {onEnterDriverApp && (
+        <button
+          type="button"
+          onClick={onEnterDriverApp}
+          style={{
+            width: '100%',
+            height: '42px',
+            backgroundColor: colors.freshLime,
+            color: colors.deepForest,
+            borderRadius: '14px',
+            border: `1.5px solid ${colors.deepForest}`,
+            fontSize: '12px',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            boxShadow: '1px 1px 0px #172B2A',
+          }}
+        >
+          <Car size={14} color={colors.deepForest} />
+          <span>Drive with SAFAR • Partner Dashboard</span>
+        </button>
+      )}
 
       {/* Micro Trust Strip */}
       <div

@@ -10,9 +10,13 @@ import { WelcomeFooter } from './WelcomeFooter';
 
 interface WelcomeScreenProps {
   onEnterPassengerApp?: () => void;
+  onEnterDriverApp?: () => void;
 }
 
-export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnterPassengerApp }) => {
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
+  onEnterPassengerApp,
+  onEnterDriverApp,
+}) => {
   return (
     <div
       style={{
@@ -60,7 +64,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnterPassengerAp
 
         {/* Action Button & Fast Login */}
         <section aria-label="Start Your Journey" className="animate-entrance delay-4" style={{ width: '100%' }}>
-          <ActionButtons onEnterApp={onEnterPassengerApp} />
+          <ActionButtons onEnterApp={onEnterPassengerApp} onEnterDriverApp={onEnterDriverApp} />
         </section>
 
         {/* Mobile Footer & City Coverage */}
